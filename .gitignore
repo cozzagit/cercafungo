@@ -55,4 +55,6 @@ ml-pipeline/output/
 ml-pipeline/models/
 *.pt
 *.pth
+*.onnx
 wandb/
+web/public/models/*.onnx
