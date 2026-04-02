@@ -1,0 +1,8 @@
+path: C:\work\Cozza\cercafungo\ml-pipeline\data\mushroom_manual
+train: train/images
+val: val/images
+
+names:
+  0: mushroom
+
+nc: 1
