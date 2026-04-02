@@ -37,11 +37,18 @@ export function HowItWorks() {
 
   return (
     <section className="py-20 md:py-28 bg-forest-800 relative overflow-hidden">
+      {/* Top organic divider */}
+      <div className="absolute -top-1 left-0 right-0">
+        <svg viewBox="0 0 1440 50" className="w-full" preserveAspectRatio="none">
+          <path fill="var(--cream-200)" d="M0,0 C480,45 960,10 1440,0 L1440,0 L0,0 Z" />
+        </svg>
+      </div>
       {/* Decorative elements */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-forest-600 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-forest-600 to-transparent" />
       <div className="absolute top-20 right-10 w-40 h-40 bg-amber-500/5 rounded-full blur-3xl" />
       <div className="absolute bottom-20 left-10 w-32 h-32 bg-forest-500/10 rounded-full blur-3xl" />
+      {/* Mist layer */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-r from-white/[0.02] via-white/[0.04] to-white/[0.02] blur-2xl animate-mist-slow" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Header */}
@@ -62,17 +69,21 @@ export function HowItWorks() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           {steps.map((step, i) => (
             <div key={step.number} className="relative text-center group">
-              {/* Connector line (only on desktop between steps) */}
+              {/* Connector line — dashed, organic (only on desktop between steps) */}
               {i < steps.length - 1 && (
-                <div className="hidden md:block absolute top-16 left-[60%] w-[80%] h-px bg-gradient-to-r from-forest-600 to-forest-700" />
+                <div className="hidden md:block absolute top-16 left-[60%] w-[80%]">
+                  <div className="h-px border-t border-dashed border-forest-600/60" />
+                  {/* Arrow tip */}
+                  <div className="absolute right-0 -top-1 w-2 h-2 border-r border-t border-forest-600/60 rotate-45" />
+                </div>
               )}
 
               {/* Icon */}
               <div className="relative inline-flex">
-                <div className="w-20 h-20 rounded-2xl bg-forest-700 border border-forest-600 text-amber-400 flex items-center justify-center mx-auto mb-6 group-hover:bg-forest-600 transition-colors duration-300">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-forest-700 to-forest-800 border border-forest-600/50 text-amber-400 flex items-center justify-center mx-auto mb-6 group-hover:from-forest-600 group-hover:to-forest-700 group-hover:border-forest-500 transition-all duration-300 shadow-lg shadow-black/20">
                   {step.icon}
                 </div>
-                <span className="absolute -top-2 -right-2 w-7 h-7 bg-amber-500 text-bark-900 rounded-full text-xs font-bold flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 w-7 h-7 bg-gradient-to-br from-amber-400 to-amber-500 text-bark-900 rounded-full text-xs font-bold flex items-center justify-center shadow-lg shadow-amber-500/30">
                   {step.number}
                 </span>
               </div>

@@ -4,15 +4,26 @@ import Link from 'next/link';
 export function Hero() {
   return (
     <section className="relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-forest-800 via-forest-700 to-forest-900" />
+      {/* Background gradient — deep forest */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0d1f06] via-forest-800 to-forest-900" />
 
-      {/* Forest silhouette overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 opacity-20">
-        <svg viewBox="0 0 1440 120" className="w-full h-full" preserveAspectRatio="none">
+      {/* Mist / fog layers */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-0 right-0 h-40 bg-gradient-to-r from-white/[0.04] via-white/[0.08] to-white/[0.03] blur-2xl animate-mist" />
+        <div className="absolute top-2/3 left-0 right-0 h-32 bg-gradient-to-r from-white/[0.03] via-white/[0.06] to-white/[0.02] blur-3xl animate-mist-slow" />
+      </div>
+
+      {/* Forest silhouette overlay — multi-layer depth */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 opacity-15">
+        <svg viewBox="0 0 1440 140" className="w-full h-full" preserveAspectRatio="none">
+          <path
+            fill="#0d1f06"
+            d="M0,140 L0,100 Q40,60 80,85 T180,55 T280,70 T380,45 T500,65 T620,35 T740,55 T860,30 T980,50 T1100,25 T1220,45 T1340,20 T1440,35 L1440,140 Z"
+          />
           <path
             fill="#112008"
-            d="M0,120 L0,80 Q60,40 120,70 T240,50 T360,65 T480,45 T600,60 T720,40 T840,55 T960,35 T1080,50 T1200,30 T1320,45 T1440,25 L1440,120 Z"
+            opacity="0.5"
+            d="M0,140 L0,110 Q70,80 140,95 T300,75 T440,88 T580,68 T720,82 T860,62 T1000,78 T1140,55 T1300,72 T1440,50 L1440,140 Z"
           />
         </svg>
       </div>
@@ -22,6 +33,11 @@ export function Hero() {
       <div className="absolute top-40 right-20 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl" />
       <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-forest-500/15 rounded-full blur-2xl" />
       <div className="absolute top-1/3 right-1/3 w-20 h-20 bg-amber-400/8 rounded-full blur-2xl" />
+
+      {/* Subtle dew-like sparkle dots */}
+      <div className="absolute top-32 left-[15%] w-1 h-1 bg-white/30 rounded-full animate-pulse" style={{ animationDuration: '3s' }} />
+      <div className="absolute top-48 left-[45%] w-1.5 h-1.5 bg-amber-300/20 rounded-full animate-pulse" style={{ animationDuration: '4s', animationDelay: '1s' }} />
+      <div className="absolute top-24 right-[30%] w-1 h-1 bg-white/25 rounded-full animate-pulse" style={{ animationDuration: '5s', animationDelay: '2s' }} />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -105,10 +121,11 @@ export function Hero() {
           <div className="hidden lg:flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="relative">
               {/* Ambient glow */}
-              <div className="absolute inset-0 bg-amber-500/20 rounded-[3rem] blur-3xl scale-90" />
+              <div className="absolute inset-0 bg-amber-500/15 rounded-[3rem] blur-3xl scale-95" />
+              <div className="absolute inset-0 bg-forest-500/10 rounded-[3rem] blur-3xl scale-110 -translate-y-4" />
 
-              {/* Phone frame */}
-              <div className="relative w-[280px] h-[580px] bg-bark-900 rounded-[3rem] p-3 shadow-2xl ring-1 ring-white/10">
+              {/* Phone frame — realistic device */}
+              <div className="relative w-[280px] h-[580px] bg-gradient-to-b from-[#1a1a1a] to-[#111] rounded-[3rem] p-3 shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_0_1px_rgba(255,255,255,0.08)]">
                 <div className="w-full h-full bg-gradient-to-br from-forest-700 to-forest-900 rounded-[2.5rem] overflow-hidden flex flex-col">
                   {/* Notch */}
                   <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-bark-900 rounded-full z-10" />
@@ -210,12 +227,17 @@ export function Hero() {
         }
       `}</style>
 
-      {/* Bottom wave */}
+      {/* Bottom wave — organic flowing shape */}
       <div className="relative -mb-1">
-        <svg viewBox="0 0 1440 60" className="w-full" preserveAspectRatio="none">
+        <svg viewBox="0 0 1440 80" className="w-full" preserveAspectRatio="none">
           <path
             fill="var(--cream-200)"
-            d="M0,30 Q360,60 720,30 T1440,30 L1440,60 L0,60 Z"
+            d="M0,45 C240,70 480,20 720,40 C960,60 1200,25 1440,45 L1440,80 L0,80 Z"
+            opacity="0.5"
+          />
+          <path
+            fill="var(--cream-200)"
+            d="M0,55 C360,30 600,65 900,45 C1100,32 1300,55 1440,50 L1440,80 L0,80 Z"
           />
         </svg>
       </div>

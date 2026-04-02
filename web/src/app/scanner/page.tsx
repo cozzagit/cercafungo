@@ -514,11 +514,11 @@ export default function ScannerPage() {
               <button
                 key={mode}
                 onClick={() => handleModeChange(mode)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold
-                  transition-all border ${
+                className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold
+                  transition-all duration-200 border ${
                     isActive
-                      ? 'bg-forest-600 border-forest-500 text-white shadow-[0_0_8px_rgba(74,124,46,0.5)]'
-                      : 'bg-[#f5f0e8]/10 border-[#f5f0e8]/20 text-white/70 hover:bg-[#f5f0e8]/20'
+                      ? 'bg-forest-600 border-forest-500 text-white shadow-[0_0_12px_rgba(74,124,46,0.4)] scale-105'
+                      : 'bg-white/5 border-white/15 text-white/60 hover:bg-white/10 hover:text-white/80 hover:border-white/25'
                   }`}
               >
                 <span>{icon}</span>
@@ -588,10 +588,13 @@ export default function ScannerPage() {
           className="absolute left-4 right-4 z-20 animate-fade-in-up"
           style={{ top: 'calc(env(safe-area-inset-top, 12px) + 100px)' }}
         >
-          <div className="bg-black/60 backdrop-blur-md rounded-2xl px-4 py-3 flex items-center gap-3">
+          <div className="bg-black/60 backdrop-blur-md rounded-2xl px-4 py-3 flex items-center gap-3 border border-white/10">
             <div
-              className="w-3 h-3 rounded-full flex-shrink-0"
-              style={{ backgroundColor: getConfidenceColorHex(topDetection.confidence) }}
+              className="w-3 h-3 rounded-full flex-shrink-0 animate-pulse"
+              style={{
+                backgroundColor: getConfidenceColorHex(topDetection.confidence),
+                boxShadow: `0 0 8px ${getConfidenceColorHex(topDetection.confidence)}60`,
+              }}
             />
             <div className="flex-1 min-w-0">
               <p className="text-white font-semibold text-sm truncate">{topDetection.label}</p>
@@ -599,11 +602,23 @@ export default function ScannerPage() {
                 Confidenza: {Math.round(topDetection.confidence * 100)}%
               </p>
             </div>
-            <div
-              className="text-lg font-bold"
-              style={{ color: getConfidenceColorHex(topDetection.confidence) }}
-            >
-              {Math.round(topDetection.confidence * 100)}%
+            {/* Mini confidence bar */}
+            <div className="flex flex-col items-end gap-1">
+              <div
+                className="text-lg font-bold"
+                style={{ color: getConfidenceColorHex(topDetection.confidence) }}
+              >
+                {Math.round(topDetection.confidence * 100)}%
+              </div>
+              <div className="w-12 h-1 bg-white/10 rounded-full overflow-hidden">
+                <div
+                  className="h-full rounded-full transition-all duration-300"
+                  style={{
+                    width: `${Math.round(topDetection.confidence * 100)}%`,
+                    backgroundColor: getConfidenceColorHex(topDetection.confidence),
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -670,21 +685,31 @@ export default function ScannerPage() {
             </svg>
           </button>
 
-          {/* Capture button */}
+          {/* Capture button — with confidence ring feedback */}
           <button
             onClick={handleCapture}
             className="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center
-              active:scale-95 transition-transform"
+              active:scale-90 transition-all duration-150 relative"
             aria-label="Cattura"
           >
+            {/* Animated confidence ring */}
+            {topDetection && (
+              <div
+                className="absolute inset-[-4px] rounded-full border-4 animate-pulse"
+                style={{
+                  borderColor: getConfidenceColorHex(topDetection.confidence),
+                  animationDuration: '1.5s',
+                }}
+              />
+            )}
             <div
-              className={`w-16 h-16 rounded-full transition-colors ${
+              className={`w-16 h-16 rounded-full transition-colors duration-300 ${
                 topDetection
                   ? topDetection.confidence > 0.75
-                    ? 'bg-green-500'
+                    ? 'bg-green-500 shadow-lg shadow-green-500/40'
                     : topDetection.confidence > 0.5
-                    ? 'bg-amber-500'
-                    : 'bg-red-400'
+                    ? 'bg-amber-500 shadow-lg shadow-amber-500/40'
+                    : 'bg-red-400 shadow-lg shadow-red-400/40'
                   : 'bg-white/90'
               }`}
             />

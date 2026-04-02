@@ -29,21 +29,31 @@ export function SpeciesDetail({ species }: SpeciesDetailProps) {
 
   return (
     <article className="max-w-4xl mx-auto">
-      {/* Danger warning for toxic species */}
+      {/* Danger warning for toxic species — very prominent */}
       {isDangerous && (
         <div className={`
-          mb-8 p-6 rounded-2xl border-2
+          mb-8 p-6 rounded-2xl border-2 relative overflow-hidden
           ${species.edibility === 'mortale'
-            ? 'bg-red-50 border-red-300'
+            ? 'bg-red-50 border-red-400 shadow-lg shadow-red-100'
             : 'bg-orange-50 border-orange-300'
           }
         `}>
-          <div className="flex items-start gap-3">
-            <span className="text-3xl flex-shrink-0">
+          {/* Danger stripe pattern on left edge */}
+          <div className={`absolute left-0 top-0 bottom-0 w-1.5 ${
+            species.edibility === 'mortale' ? 'bg-red-600' : 'bg-orange-500'
+          }`} />
+          {/* Repeating danger stripe for mortale */}
+          {species.edibility === 'mortale' && (
+            <div className="absolute top-0 right-0 bg-red-600 text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 rounded-bl-lg">
+              Pericolo di morte
+            </div>
+          )}
+          <div className="flex items-start gap-4 pl-3">
+            <span className="text-4xl flex-shrink-0">
               {species.edibility === 'mortale' ? '\u2620\uFE0F' : '\u26A0\uFE0F'}
             </span>
             <div>
-              <h2 className={`text-lg font-bold mb-1 ${
+              <h2 className={`text-xl font-bold mb-2 ${
                 species.edibility === 'mortale' ? 'text-red-800' : 'text-orange-800'
               }`}>
                 {species.edibility === 'mortale'
@@ -55,18 +65,26 @@ export function SpeciesDetail({ species }: SpeciesDetailProps) {
               }`}>
                 {species.edibilityNote}
               </p>
+              {species.edibility === 'mortale' && (
+                <p className="text-xs text-red-600 font-semibold mt-3 flex items-center gap-1.5">
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                  </svg>
+                  Portare SEMPRE i funghi al centro micologico ASL prima del consumo.
+                </p>
+              )}
             </div>
           </div>
         </div>
       )}
 
-      {/* Header */}
-      <header className="mb-8">
-        <div className="flex flex-wrap items-center gap-3 mb-2">
+      {/* Header — botanical illustration style */}
+      <header className="mb-8 pb-8 border-b border-cream-400/50">
+        <div className="flex flex-wrap items-center gap-3 mb-3">
           <DangerBadge edibility={species.edibility} size="lg" />
-          <span className="text-sm text-bark-400">{species.family}</span>
+          <span className="text-xs font-semibold text-bark-400 uppercase tracking-wider bg-cream-200 px-2.5 py-1 rounded-lg">{species.family}</span>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-bark-800 font-[family-name:var(--font-playfair)] mb-2">
+        <h1 className="text-4xl md:text-5xl font-bold text-bark-800 font-[family-name:var(--font-playfair)] mb-2 leading-tight">
           {species.italianName}
         </h1>
         <p className="text-xl text-bark-400 italic mb-3">
@@ -74,7 +92,8 @@ export function SpeciesDetail({ species }: SpeciesDetailProps) {
         </p>
         {species.alternativeNames.length > 0 && (
           <p className="text-sm text-bark-400">
-            Nomi alternativi: {species.alternativeNames.join(', ')}
+            <span className="font-semibold text-bark-500">Nomi alternativi:</span>{' '}
+            {species.alternativeNames.join(', ')}
           </p>
         )}
       </header>

@@ -91,10 +91,12 @@ export function Features() {
         {/* Features grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
           {FEATURES.map((feature) => (
-            <Card key={feature.title} hover>
+            <Card key={feature.title} hover className="group/card overflow-hidden relative">
+              {/* Subtle top accent line */}
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-forest-400/0 via-forest-400/40 to-forest-400/0 opacity-0 group-hover/card:opacity-100 transition-opacity duration-500" />
               <CardContent className="pt-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-forest-100 text-forest-600 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-forest-100 text-forest-600 flex items-center justify-center flex-shrink-0 group-hover/card:bg-forest-600 group-hover/card:text-white transition-colors duration-300">
                     {feature.icon}
                   </div>
                   <div>

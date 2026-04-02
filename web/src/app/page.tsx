@@ -7,7 +7,7 @@ import { Footer } from '@/components/landing/footer';
 
 function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-forest-900/80 backdrop-blur-md border-b border-forest-700/50">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-forest-900/85 backdrop-blur-lg border-b border-forest-700/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2.5">
@@ -22,6 +22,18 @@ function Navbar() {
               className="text-sm text-forest-200 hover:text-white transition-colors font-medium hidden sm:block"
             >
               Guida Specie
+            </Link>
+            <Link
+              href="/mappa"
+              className="text-sm text-forest-200 hover:text-white transition-colors font-medium hidden sm:block"
+            >
+              Mappa
+            </Link>
+            <Link
+              href="/condizioni"
+              className="text-sm text-forest-200 hover:text-white transition-colors font-medium hidden sm:block"
+            >
+              Condizioni
             </Link>
             <Link
               href="/scanner"
@@ -477,7 +489,7 @@ function DownloadCTA() {
           Tutto offline, tutto gratis.
         </p>
 
-        {/* Two primary CTAs */}
+        {/* Three primary CTAs */}
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
           <Link
             href="/scanner"
@@ -490,13 +502,22 @@ function DownloadCTA() {
             Prova lo Scanner
           </Link>
           <Link
+            href="/mappa"
+            className="inline-flex items-center justify-center gap-3 bg-forest-600 hover:bg-forest-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg shadow-forest-800/30 hover:-translate-y-0.5"
+          >
+            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+            </svg>
+            Mappa Ritrovamenti
+          </Link>
+          <Link
             href="/guida"
             className="inline-flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-8 py-4 rounded-2xl font-semibold text-lg transition-all"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
             </svg>
-            Esplora la Guida Specie
+            Guida Specie
           </Link>
         </div>
 

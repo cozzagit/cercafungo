@@ -33,22 +33,22 @@ export function SpeciesCard({ species }: SpeciesCardProps) {
 
   return (
     <Link href={`/guida/${slug}`}>
-      <Card hover className={`overflow-hidden ${isDangerous ? 'ring-1 ring-red-200' : ''}`}>
-        {/* Color strip header */}
+      <Card hover className={`overflow-hidden group/species ${isDangerous ? 'ring-2 ring-red-300/60 hover:ring-red-400/80' : ''}`}>
+        {/* Color strip header — thicker, more prominent */}
         <div
           className={`
-            h-2
+            h-1.5 relative
             ${species.edibility === 'mortale'
-              ? 'bg-red-600'
+              ? 'bg-gradient-to-r from-red-700 via-red-600 to-red-700'
               : species.edibility === 'tossico'
-                ? 'bg-orange-500'
+                ? 'bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600'
                 : species.edibility === 'ottimo'
-                  ? 'bg-green-600'
+                  ? 'bg-gradient-to-r from-green-700 via-green-600 to-green-700'
                   : species.edibility === 'buono'
-                    ? 'bg-green-500'
+                    ? 'bg-gradient-to-r from-green-600 via-green-500 to-green-600'
                     : species.edibility === 'commestibile'
-                      ? 'bg-yellow-500'
-                      : 'bg-gray-400'
+                      ? 'bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600'
+                      : 'bg-gradient-to-r from-gray-500 via-gray-400 to-gray-500'
             }
           `}
         />
@@ -58,8 +58,8 @@ export function SpeciesCard({ species }: SpeciesCardProps) {
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xl">{getMushroomEmoji(species.edibility)}</span>
-                <h3 className="text-lg font-bold text-bark-800 truncate">
+                <span className="text-xl group-hover/species:scale-110 transition-transform duration-200">{getMushroomEmoji(species.edibility)}</span>
+                <h3 className="text-lg font-bold text-bark-800 truncate font-[family-name:var(--font-playfair)]">
                   {species.italianName}
                 </h3>
               </div>
