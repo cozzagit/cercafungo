@@ -45,3 +45,14 @@ Thumbs.db
 
 # Testing
 coverage/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+ml-pipeline/data/
+ml-pipeline/output/
+ml-pipeline/models/
+*.pt
+*.pth
+wandb/
