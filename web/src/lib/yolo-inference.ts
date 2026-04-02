@@ -30,6 +30,22 @@ export interface YoloEngineOptions {
   maxDetections?: number;
 }
 
+/**
+ * Scanner operating modes:
+ * - 'standard'  : default thresholds, balanced precision/recall (proximity detection)
+ * - 'extended'  : lower thresholds, optimised for 5-10m range in open meadows/sottobosco
+ * - 'morchella' : minimum thresholds, tuned for the distinctive honeycomb shape at distance
+ */
+export type ScannerMode = 'standard' | 'extended' | 'morchella';
+
+export interface ScannerModeConfig {
+  confidenceThreshold: number;
+  iouThreshold: number;
+  maxDetections: number;
+  label: string;
+  hint: string;
+}
+
 // ── Constants ──────────────────────────────────────────────────
 
 const MODEL_INPUT_SIZE = 640;
@@ -37,6 +53,69 @@ const DEFAULT_CONFIDENCE_THRESHOLD = 0.25;
 const DEFAULT_IOU_THRESHOLD = 0.45;
 const DEFAULT_MAX_DETECTIONS = 20;
 const CLASS_LABEL = 'Fungo';
+
+// ── Scanner mode configuration ─────────────────────────────────
+
+const SCANNER_MODE_CONFIGS: Record<ScannerMode, ScannerModeConfig> = {
+  standard: {
+    confidenceThreshold: 0.25,
+    iouThreshold: 0.45,
+    maxDetections: 20,
+    label: 'Standard',
+    hint: 'Rilevamento standard — fungo ravvicinato',
+  },
+  extended: {
+    confidenceThreshold: 0.15,
+    iouThreshold: 0.35,
+    maxDetections: 30,
+    label: 'Lungo Raggio',
+    hint: 'Ottimizzato per detection 5-10m',
+  },
+  morchella: {
+    confidenceThreshold: 0.12,
+    iouThreshold: 0.30,
+    maxDetections: 30,
+    label: 'Morchella',
+    hint: 'Cerca morchelle — forma a nido d\'ape',
+  },
+};
+
+let currentMode: ScannerMode = 'standard';
+
+/**
+ * Switch the active scanner mode. Subsequent calls to runInference
+ * without explicit options will use the new mode's thresholds.
+ */
+export function setScannerMode(mode: ScannerMode): void {
+  currentMode = mode;
+}
+
+/**
+ * Return the currently active scanner mode.
+ */
+export function getScannerMode(): ScannerMode {
+  return currentMode;
+}
+
+/**
+ * Return the full config object for a given mode (or the active mode if omitted).
+ */
+export function getScannerModeConfig(mode?: ScannerMode): ScannerModeConfig {
+  return SCANNER_MODE_CONFIGS[mode ?? currentMode];
+}
+
+/**
+ * Return YoloEngineOptions derived from the current (or specified) mode.
+ * Explicit values in the options argument always win over the mode defaults.
+ */
+export function getModeOptions(mode?: ScannerMode, overrides?: YoloEngineOptions): YoloEngineOptions {
+  const cfg = SCANNER_MODE_CONFIGS[mode ?? currentMode];
+  return {
+    confidenceThreshold: overrides?.confidenceThreshold ?? cfg.confidenceThreshold,
+    iouThreshold: overrides?.iouThreshold ?? cfg.iouThreshold,
+    maxDetections: overrides?.maxDetections ?? cfg.maxDetections,
+  };
+}
 
 // ── Engine ─────────────────────────────────────────────────────
 
@@ -101,9 +180,11 @@ export async function runInference(
     return { detections: [], inferenceTimeMs: 0 };
   }
 
-  const confidenceThreshold = options?.confidenceThreshold ?? DEFAULT_CONFIDENCE_THRESHOLD;
-  const iouThreshold = options?.iouThreshold ?? DEFAULT_IOU_THRESHOLD;
-  const maxDetections = options?.maxDetections ?? DEFAULT_MAX_DETECTIONS;
+  // Resolve thresholds: explicit options → active mode config → hardcoded defaults
+  const modeOptions = getModeOptions(currentMode, options);
+  const confidenceThreshold = modeOptions.confidenceThreshold ?? DEFAULT_CONFIDENCE_THRESHOLD;
+  const iouThreshold = modeOptions.iouThreshold ?? DEFAULT_IOU_THRESHOLD;
+  const maxDetections = modeOptions.maxDetections ?? DEFAULT_MAX_DETECTIONS;
 
   const ortModule = await getOrt();
   const startTime = performance.now();

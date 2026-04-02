@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import type { Detection } from '@/lib/yolo-inference';
+import type { Detection, ScannerMode } from '@/lib/yolo-inference';
+import { getScannerModeConfig } from '@/lib/yolo-inference';
 import {
   requestCameraAccess,
   getCameraCapabilities,
@@ -56,6 +57,7 @@ export default function ScannerPage() {
   const [showBottomSheet, setShowBottomSheet] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [demoMode, setDemoMode] = useState(false);
+  const [scannerMode, setScannerModeState] = useState<ScannerMode>('standard');
 
   // ── Camera setup ─────────────────────────────────────────────
 
@@ -156,14 +158,15 @@ export default function ScannerPage() {
 
       try {
         const { captureFrame } = await import('@/lib/camera-utils');
-        const { runInference } = await import('@/lib/yolo-inference');
+        const { runInference, getModeOptions, getScannerMode } = await import('@/lib/yolo-inference');
 
         const imageData = captureFrame(video, 640, 640);
         if (imageData) {
           const result = await runInference(
             imageData,
             video.videoWidth,
-            video.videoHeight
+            video.videoHeight,
+            getModeOptions(getScannerMode())
           );
 
           if (result.detections.length > 0) {
@@ -329,6 +332,12 @@ export default function ScannerPage() {
     }
   };
 
+  const handleModeChange = async (mode: ScannerMode) => {
+    const { setScannerMode } = await import('@/lib/yolo-inference');
+    setScannerMode(mode);
+    setScannerModeState(mode);
+  };
+
   const handleCapture = async () => {
     if (!videoRef.current) return;
 
@@ -488,6 +497,42 @@ export default function ScannerPage() {
               title={modelLoaded ? 'Modello caricato' : modelLoading ? 'Caricamento...' : 'Modello non caricato'}
             />
           </div>
+        </div>
+
+        {/* Mode selector chips */}
+        <div className="mt-3 flex items-center gap-2">
+          {(
+            [
+              { mode: 'standard', icon: '🍄' },
+              { mode: 'extended', icon: '🔭' },
+              { mode: 'morchella', icon: '🌿' },
+            ] as { mode: ScannerMode; icon: string }[]
+          ).map(({ mode, icon }) => {
+            const cfg = getScannerModeConfig(mode);
+            const isActive = scannerMode === mode;
+            return (
+              <button
+                key={mode}
+                onClick={() => handleModeChange(mode)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold
+                  transition-all border ${
+                    isActive
+                      ? 'bg-forest-600 border-forest-500 text-white shadow-[0_0_8px_rgba(74,124,46,0.5)]'
+                      : 'bg-[#f5f0e8]/10 border-[#f5f0e8]/20 text-white/70 hover:bg-[#f5f0e8]/20'
+                  }`}
+              >
+                <span>{icon}</span>
+                <span>{cfg.label}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Active mode hint */}
+        <div className="mt-2 px-1">
+          <p className="text-white/50 text-xs italic">
+            {getScannerModeConfig(scannerMode).hint}
+          </p>
         </div>
 
         {/* Model status banner */}

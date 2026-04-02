@@ -17,91 +17,141 @@ export function Hero() {
         </svg>
       </div>
 
-      {/* Decorative mushroom shapes */}
-      <div className="absolute top-20 left-10 w-24 h-24 bg-forest-600/20 rounded-full blur-2xl" />
-      <div className="absolute top-40 right-20 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-1/4 w-20 h-20 bg-forest-500/15 rounded-full blur-2xl" />
+      {/* Decorative ambient glows */}
+      <div className="absolute top-20 left-10 w-32 h-32 bg-forest-600/20 rounded-full blur-2xl" />
+      <div className="absolute top-40 right-20 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-forest-500/15 rounded-full blur-2xl" />
+      <div className="absolute top-1/3 right-1/3 w-20 h-20 bg-amber-400/8 rounded-full blur-2xl" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-36">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Text */}
           <div className="animate-fade-in-up">
+            {/* Live badge */}
             <div className="inline-flex items-center gap-2 bg-forest-600/40 backdrop-blur-sm border border-forest-500/30 rounded-full px-4 py-1.5 mb-6">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              <span className="text-sm text-forest-200 font-medium">AI per la micologia alpina</span>
+              <span className="text-sm text-forest-200 font-medium">AI addestrata sui porcini della Valtellina</span>
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white font-[family-name:var(--font-playfair)] leading-tight mb-6">
-              Il tuo secondo paio
+              Riconosce il{' '}
+              <span className="text-amber-400">porcino</span>
               <br />
-              di occhi{' '}
-              <span className="text-amber-400">nel bosco</span>
+              prima che tu
+              <br />
+              ti avvicini
             </h1>
 
-            <p className="text-lg md:text-xl text-forest-200 leading-relaxed mb-8 max-w-lg">
-              Identifica i funghi con l&apos;intelligenza artificiale.
-              48 specie delle Alpi, scanner in tempo reale,
-              mappa dei ritrovamenti. Tutto offline.
+            <p className="text-lg md:text-xl text-forest-200 leading-relaxed mb-3 max-w-lg">
+              Scanner AI in tempo reale direttamente dal browser del telefono.
+              Nessuna app da installare. Funziona anche a 1.800m senza segnale.
+            </p>
+            <p className="text-sm text-amber-300/80 font-medium mb-8 max-w-lg">
+              Addestrato su porcini alpini e morchelle — 48 specie da Valtellina alle Dolomiti.
             </p>
 
             <div className="flex flex-wrap gap-4">
-              <Button size="xl" variant="accent">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+              <Link
+                href="/scanner"
+                className="inline-flex items-center gap-2.5 bg-amber-500 hover:bg-amber-600 text-white px-7 py-4 rounded-xl font-bold text-base transition-all shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 hover:-translate-y-0.5"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                Scarica per iOS
-              </Button>
-              <Button size="xl" variant="secondary" className="bg-white/10 text-white border-white/20 hover:bg-white/20">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zM14.852 13.06l2.29 1.32-7.53 4.35 5.24-5.67zM17.141 9.62l-2.29 1.32-5.24-5.67 7.53 4.35zM18.328 10.3l2.042 1.18c.552.319.552.72 0 1.04l-2.042 1.18-2.623-1.7 2.623-1.7z"/>
+                Prova lo Scanner Ora
+              </Link>
+              <Link
+                href="/guida"
+                className="inline-flex items-center gap-2.5 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-7 py-4 rounded-xl font-semibold text-base transition-all"
+              >
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                 </svg>
-                Scarica per Android
-              </Button>
+                Guida Specie
+              </Link>
             </div>
 
-            <div className="flex items-center gap-6 mt-8 text-forest-300 text-sm">
+            {/* Trust signals */}
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 mt-8 text-forest-300 text-sm">
               <span className="flex items-center gap-1.5">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                Gratis
+                100% offline
               </span>
               <span className="flex items-center gap-1.5">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
-                Funziona offline
+                Nessuna app da installare
               </span>
               <span className="flex items-center gap-1.5">
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
                 48 specie alpine
               </span>
+              <span className="flex items-center gap-1.5">
+                <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                Gratis
+              </span>
             </div>
           </div>
 
-          {/* Phone mockup */}
+          {/* Phone mockup with scanner simulation */}
           <div className="hidden lg:flex justify-center animate-fade-in" style={{ animationDelay: '200ms' }}>
             <div className="relative">
-              {/* Glow effect */}
+              {/* Ambient glow */}
               <div className="absolute inset-0 bg-amber-500/20 rounded-[3rem] blur-3xl scale-90" />
 
               {/* Phone frame */}
               <div className="relative w-[280px] h-[580px] bg-bark-900 rounded-[3rem] p-3 shadow-2xl ring-1 ring-white/10">
-                <div className="w-full h-full bg-gradient-to-br from-forest-700 to-forest-900 rounded-[2.5rem] overflow-hidden flex flex-col items-center justify-center">
+                <div className="w-full h-full bg-gradient-to-br from-forest-700 to-forest-900 rounded-[2.5rem] overflow-hidden flex flex-col">
                   {/* Notch */}
-                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-bark-900 rounded-full" />
+                  <div className="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-bark-900 rounded-full z-10" />
 
-                  {/* App content mockup */}
-                  <div className="text-center p-8">
-                    <div className="text-6xl mb-4">{'\uD83C\uDF44'}</div>
-                    <h3 className="text-xl font-bold text-white mb-2">CercaFungo</h3>
-                    <p className="text-forest-300 text-sm mb-6">Punta la fotocamera verso un fungo</p>
+                  {/* Scanner UI */}
+                  <div className="flex-1 relative flex flex-col items-center justify-center p-6 pt-10">
+                    {/* Viewfinder corners */}
+                    <div className="absolute inset-8 pointer-events-none">
+                      <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-amber-400 rounded-tl-lg" />
+                      <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-amber-400 rounded-tr-lg" />
+                      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-amber-400 rounded-bl-lg" />
+                      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-amber-400 rounded-br-lg" />
+                    </div>
 
-                    {/* Fake scan button */}
-                    <div className="w-20 h-20 mx-auto rounded-full bg-amber-500/80 flex items-center justify-center animate-pulse-glow">
-                      <svg className="w-10 h-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    {/* Fake camera background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-forest-800 via-forest-700 to-bark-800 opacity-60" />
+
+                    {/* Detection bounding box — porcino */}
+                    <div className="relative z-10 w-36 h-32 border-2 border-green-400 rounded-lg flex flex-col items-center justify-center shadow-lg shadow-green-400/20">
+                      <div className="absolute -top-5 left-0 bg-green-500 text-white text-[9px] font-bold px-2 py-0.5 rounded-t-md whitespace-nowrap">
+                        Boletus edulis — 94%
+                      </div>
+                      <span className="text-5xl">🍄</span>
+                    </div>
+
+                    {/* Scan line animation */}
+                    <div
+                      className="absolute left-8 right-8 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-70"
+                      style={{
+                        animation: 'scanLine 2s ease-in-out infinite',
+                        top: '35%',
+                      }}
+                    />
+                  </div>
+
+                  {/* Bottom bar */}
+                  <div className="bg-bark-900/80 backdrop-blur-sm px-5 py-3 flex items-center justify-between">
+                    <div>
+                      <p className="text-[10px] text-forest-300 font-medium">Rilevato</p>
+                      <p className="text-xs font-bold text-green-400">Porcino — COMMESTIBILE</p>
+                    </div>
+                    <div className="w-10 h-10 rounded-full bg-amber-500/80 flex items-center justify-center animate-pulse-glow">
+                      <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                       </svg>
@@ -110,20 +160,35 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Floating cards */}
-              <div className="absolute -left-16 top-24 bg-cream-50 rounded-xl p-3 shadow-xl animate-float" style={{ animationDelay: '0.5s' }}>
+              {/* Floating confidence card */}
+              <div className="absolute -left-20 top-24 bg-cream-50 rounded-xl p-3 shadow-xl animate-float" style={{ animationDelay: '0.5s' }}>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">{'\uD83C\uDF44'}</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-500 flex-shrink-0" />
                   <div>
-                    <p className="text-xs font-bold text-bark-700">Porcino</p>
-                    <p className="text-[10px] text-green-600 font-semibold">98% match</p>
+                    <p className="text-xs font-bold text-bark-700">Porcino — 94%</p>
+                    <p className="text-[9px] text-green-600 font-semibold">Alta confidenza</p>
                   </div>
                 </div>
               </div>
 
-              <div className="absolute -right-12 bottom-32 bg-cream-50 rounded-xl p-3 shadow-xl animate-float" style={{ animationDelay: '1s' }}>
+              {/* Floating offline badge */}
+              <div className="absolute -right-16 top-40 bg-forest-700 rounded-xl p-3 shadow-xl animate-float" style={{ animationDelay: '1.2s' }}>
                 <div className="flex items-center gap-2">
-                  <span className="text-lg">{'\uD83D\uDDFA\uFE0F'}</span>
+                  <svg className="w-4 h-4 text-green-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 5.636a9 9 0 010 12.728M15.536 8.464a5 5 0 010 7.072M6.343 17.657a9 9 0 010-12.728M9.172 14.828a5 5 0 010-7.072" />
+                    <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
+                  </svg>
+                  <div>
+                    <p className="text-[9px] font-bold text-white">Offline</p>
+                    <p className="text-[9px] text-green-400">Attivo</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Floating location card */}
+              <div className="absolute -right-14 bottom-32 bg-cream-50 rounded-xl p-3 shadow-xl animate-float" style={{ animationDelay: '1s' }}>
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🗺️</span>
                   <div>
                     <p className="text-xs font-bold text-bark-700">Val Masino</p>
                     <p className="text-[10px] text-bark-400">1.240m s.l.m.</p>
@@ -134,6 +199,16 @@ export function Hero() {
           </div>
         </div>
       </div>
+
+      {/* Scan line keyframe — injected inline since Tailwind can't handle arbitrary keyframes */}
+      <style>{`
+        @keyframes scanLine {
+          0% { top: 30%; opacity: 0; }
+          10% { opacity: 0.7; }
+          90% { opacity: 0.7; }
+          100% { top: 70%; opacity: 0; }
+        }
+      `}</style>
 
       {/* Bottom wave */}
       <div className="relative -mb-1">

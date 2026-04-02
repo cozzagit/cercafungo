@@ -173,6 +173,71 @@ export function stopCamera(stream: MediaStream): void {
 }
 
 /**
+ * Request the rear camera at the maximum resolution the device supports.
+ * Useful for long-range scanning: more pixels → smaller subjects are still
+ * resolvable before downscaling to 640x640 for YOLO inference.
+ *
+ * Falls back to standard access if the high-res request is rejected.
+ */
+export async function requestMaxResolutionCamera(): Promise<MediaStream> {
+  const maxResConstraints: MediaStreamConstraints = {
+    video: {
+      facingMode: { ideal: 'environment' },
+      width: { ideal: 4096 },
+      height: { ideal: 2160 },
+      // Request the highest available frame rate that still allows max res
+      frameRate: { ideal: 30, max: 60 },
+    },
+    audio: false,
+  };
+
+  try {
+    return await navigator.mediaDevices.getUserMedia(maxResConstraints);
+  } catch {
+    // Device doesn't support the requested resolution — fall back to standard
+    return requestCameraAccess();
+  }
+}
+
+/**
+ * Apply a digital (software) zoom by cropping the live video feed and
+ * re-drawing it stretched to fill the canvas, simulating optical zoom.
+ *
+ * @param video   - Source video element
+ * @param canvas  - Destination canvas (will be drawn on)
+ * @param factor  - Zoom factor: 1.0 = no zoom, 2.0 = 2x zoom, 3.0 = 3x zoom
+ *
+ * The cropped region is always centred on the frame.  Returns the zoomed
+ * ImageData so it can be passed directly to YOLO inference.
+ */
+export function applyDigitalZoom(
+  video: HTMLVideoElement,
+  canvas: HTMLCanvasElement,
+  factor: number
+): ImageData | null {
+  if (video.readyState < 2) return null;
+
+  const vw = video.videoWidth;
+  const vh = video.videoHeight;
+
+  const clampedFactor = Math.max(1, Math.min(factor, 5));
+
+  // Crop rectangle centred on the frame
+  const cropW = vw / clampedFactor;
+  const cropH = vh / clampedFactor;
+  const cropX = (vw - cropW) / 2;
+  const cropY = (vh - cropH) / 2;
+
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  if (!ctx) return null;
+
+  // Draw cropped+stretched onto the canvas
+  ctx.drawImage(video, cropX, cropY, cropW, cropH, 0, 0, canvas.width, canvas.height);
+
+  return ctx.getImageData(0, 0, canvas.width, canvas.height);
+}
+
+/**
  * Custom error class for camera-related issues.
  */
 export class CameraError extends Error {

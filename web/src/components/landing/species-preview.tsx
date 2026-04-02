@@ -27,28 +27,45 @@ export function SpeciesPreview() {
             Guida alle specie
           </span>
           <h2 className="mt-3 text-3xl md:text-4xl font-bold text-bark-800 font-[family-name:var(--font-playfair)]">
-            48 specie, dalla Valtellina alle Alpi
+            48 specie catalogate — dalla Valtellina alle Dolomiti
           </h2>
           <p className="mt-4 text-lg text-bark-400 max-w-2xl mx-auto">
             Ogni scheda include descrizione completa, stagionalita, habitat,
-            sosia pericolosi e curiosita. Tutto verificato da fonti micologiche.
+            sosia pericolosi e curiosita. Porcini, morchelle, gallinacci: tutto verificato da fonti micologiche ufficiali.
           </p>
         </div>
 
         {/* Stats bar */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
           {[
-            { value: '48', label: 'Specie' },
+            { value: '48', label: 'Specie Alpine', color: 'text-bark-800' },
             { value: '15', label: 'Commestibili', color: 'text-green-600' },
             { value: '5', label: 'Mortali', color: 'text-red-600' },
             { value: '8', label: 'Tossiche', color: 'text-orange-500' },
-            { value: '15+', label: 'Famiglie' },
+            { value: '15+', label: 'Famiglie', color: 'text-bark-800' },
           ].map((stat) => (
             <div key={stat.label} className="text-center p-4 bg-cream-50 rounded-xl border border-cream-400/50">
-              <p className={`text-2xl font-bold ${stat.color ?? 'text-bark-800'}`}>{stat.value}</p>
+              <p className={`text-2xl font-bold ${stat.color}`}>{stat.value}</p>
               <p className="text-xs text-bark-400 mt-1">{stat.label}</p>
             </div>
           ))}
+        </div>
+
+        {/* Training data callout */}
+        <div className="bg-forest-800 rounded-2xl p-5 mb-12 flex flex-col sm:flex-row items-center gap-4 border border-forest-700">
+          <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center">
+            <svg className="w-6 h-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+            </svg>
+          </div>
+          <div className="text-center sm:text-left">
+            <p className="text-white font-semibold text-sm">Database basato su dati reali di campo</p>
+            <p className="text-forest-300 text-xs mt-0.5">
+              <span className="text-amber-400 font-bold">16 bounding box di porcini</span> annotati manualmente &nbsp;·&nbsp;
+              <span className="text-amber-400 font-bold">400+ foto di morchella</span> nel training set &nbsp;·&nbsp;
+              Fonte: iNaturalist — 13.000+ osservazioni verificate
+            </p>
+          </div>
         </div>
 
         {/* Species cards */}
