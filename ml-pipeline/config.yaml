@@ -1,0 +1,788 @@
+# ============================================================
+# CercaFungo ML Pipeline — Configurazione Centrale
+# ============================================================
+
+# --- Percorsi ---
+paths:
+  base_dir: "./data"
+  raw_images: "./data/raw"
+  synthetic_images: "./data/synthetic"
+  processed_dataset: "./data/processed"
+  backgrounds: "./data/backgrounds"
+  models_output: "./models"
+  exports_output: "./exports"
+  app_assets: "../assets/models"  # Cartella assets dell'app React Native
+  manual_photos: "./data/raw/manual"  # Foto raccolte manualmente
+  annotations: "./data/annotations"  # Annotazioni manuali YOLO
+
+# --- iNaturalist API ---
+inaturalist:
+  base_url: "https://api.inaturalist.org/v1"
+  # Bounding box: Alpi e Prealpi italiane
+  bounding_box:
+    sw_lat: 45.5
+    sw_lng: 8.5
+    ne_lat: 47.0
+    ne_lng: 12.5
+  quality_grade: "research"  # Solo osservazioni verificate dalla community
+  max_photos_per_species: 1000
+  rate_limit_delay: 1.1  # Secondi tra richieste (rispetto API)
+  per_page: 200  # Max consentito da iNaturalist
+
+# --- Flickr API ---
+flickr:
+  api_key: null       # Impostare via env var FLICKR_API_KEY
+  api_secret: null    # Impostare via env var FLICKR_API_SECRET
+  # Termini di ricerca per foto di funghi
+  search_terms:
+    - "porcini mushroom"
+    - "boletus edulis"
+    - "funghi bosco"
+    - "mushroom forest"
+    - "chanterelle"
+    - "gallinaccio finferlo"
+    - "amanita muscaria"
+    - "wild mushroom Italy"
+    - "fungo velenoso"
+  # Solo licenze Creative Commons
+  license_ids: "1,2,3,4,5,6"  # CC-BY, CC-BY-SA, CC-BY-ND, CC-BY-NC, CC-BY-NC-SA, CC-BY-NC-ND
+  max_photos_per_query: 500
+  photo_size: "url_l"  # large 1024 (url_o per originale)
+  rate_limit_delay: 1.0
+  output_dir: "./data/raw/flickr"
+
+# --- Roboflow ---
+roboflow:
+  # Progetti pubblici su Roboflow Universe per mushroom detection
+  projects:
+    - workspace: "mushroom-detection"
+      project: "mushroom-detector"
+      version: 1
+      format: "yolov8"
+    - workspace: "fungi-detection"
+      project: "fungi"
+      version: 1
+      format: "yolov8"
+  # Se hai una API key Roboflow (opzionale per dataset pubblici)
+  api_key: null  # Impostare via env var ROBOFLOW_API_KEY
+
+# --- Sfondi per dati sintetici ---
+backgrounds:
+  # Termini di ricerca per sfondi di sottobosco
+  search_terms:
+    - "forest floor"
+    - "sottobosco"
+    - "forest ground"
+    - "leaf litter"
+    - "moss forest"
+    - "woodland floor"
+    - "foglie bosco"
+  target_count: 500  # Obiettivo minimo sfondi diversi
+  min_resolution: 640  # Minima risoluzione accettabile
+  # Fonti
+  flickr:
+    enabled: true
+    max_per_query: 100
+  unsplash:
+    enabled: true
+    access_key: null  # Impostare via env var UNSPLASH_ACCESS_KEY
+    max_per_query: 30
+
+# --- Specie di Funghi (48 specie + sconosciuto) ---
+# Allineato a lib/species/data.ts dell'app
+species:
+  # ============================================================
+  # COMMESTIBILI PREGIATI
+  # ============================================================
+
+  - id: "boletus_edulis"
+    latin: "Boletus edulis"
+    italian: "Porcino"
+    taxon_id: 48701
+    edible: true
+    toxic: false
+    deadly: false
+    season: "giugno-novembre"
+    habitat: "faggeta, abetaia, pecceta, bosco misto, castagneto"
+    class_id: 1
+
+  - id: "boletus_aereus"
+    latin: "Boletus aereus"
+    italian: "Porcino nero"
+    taxon_id: 116856
+    edible: true
+    toxic: false
+    deadly: false
+    season: "giugno-ottobre"
+    habitat: "querceto, castagneto, lecceta"
+    class_id: 2
+
+  - id: "boletus_pinophilus"
+    latin: "Boletus pinophilus"
+    italian: "Porcino dei pini"
+    taxon_id: 326763
+    edible: true
+    toxic: false
+    deadly: false
+    season: "giugno-ottobre"
+    habitat: "pinete, peccete, abetaie"
+    class_id: 3
+
+  - id: "boletus_reticulatus"
+    latin: "Boletus reticulatus"
+    italian: "Porcino estivo"
+    taxon_id: 326762
+    edible: true
+    toxic: false
+    deadly: false
+    season: "maggio-settembre"
+    habitat: "querceto, castagneto, faggeta"
+    class_id: 4
+
+  - id: "cantharellus_cibarius"
+    latin: "Cantharellus cibarius"
+    italian: "Gallinaccio"
+    taxon_id: 48230
+    edible: true
+    toxic: false
+    deadly: false
+    season: "giugno-ottobre"
+    habitat: "boschi misti, terreno acido"
+    class_id: 5
+
+  - id: "amanita_caesarea"
+    latin: "Amanita caesarea"
+    italian: "Ovolo buono"
+    taxon_id: 48683
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-ottobre"
+    habitat: "boschi di castagno e quercia, sotto 1000m"
+    class_id: 6
+
+  - id: "craterellus_cornucopioides"
+    latin: "Craterellus cornucopioides"
+    italian: "Trombetta dei morti"
+    taxon_id: 48229
+    edible: true
+    toxic: false
+    deadly: false
+    season: "settembre-novembre"
+    habitat: "faggeta, querceto, terreno calcareo"
+    class_id: 7
+
+  - id: "hydnum_repandum"
+    latin: "Hydnum repandum"
+    italian: "Steccherino dorato"
+    taxon_id: 47453
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-novembre"
+    habitat: "boschi misti, faggeta"
+    class_id: 8
+
+  - id: "macrolepiota_procera"
+    latin: "Macrolepiota procera"
+    italian: "Mazza di tamburo"
+    taxon_id: 48178
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-novembre"
+    habitat: "prati, radure, margini boschivi"
+    class_id: 9
+
+  - id: "armillaria_mellea"
+    latin: "Armillaria mellea"
+    italian: "Chiodino"
+    taxon_id: 48206
+    edible: true
+    toxic: false
+    deadly: false
+    season: "settembre-novembre"
+    habitat: "ceppi e tronchi marcescenti"
+    class_id: 10
+
+  - id: "lactarius_deliciosus"
+    latin: "Lactarius deliciosus"
+    italian: "Sanguinello"
+    taxon_id: 48425
+    edible: true
+    toxic: false
+    deadly: false
+    season: "agosto-novembre"
+    habitat: "pinete, sotto conifere"
+    class_id: 11
+
+  - id: "morchella_esculenta"
+    latin: "Morchella esculenta"
+    italian: "Spugnola"
+    taxon_id: 48577
+    edible: true
+    toxic: false
+    deadly: false
+    season: "marzo-maggio"
+    habitat: "frutteti, terreni calcarei, radure"
+    class_id: 12
+
+  - id: "tricholoma_terreum"
+    latin: "Tricholoma terreum"
+    italian: "Moretta"
+    taxon_id: 53720
+    edible: true
+    toxic: false
+    deadly: false
+    season: "settembre-dicembre"
+    habitat: "pinete, boschi di conifere"
+    class_id: 13
+
+  - id: "russula_cyanoxantha"
+    latin: "Russula cyanoxantha"
+    italian: "Colombina maggiore"
+    taxon_id: 48344
+    edible: true
+    toxic: false
+    deadly: false
+    season: "giugno-ottobre"
+    habitat: "faggeta, querceto, boschi misti"
+    class_id: 14
+
+  - id: "pleurotus_ostreatus"
+    latin: "Pleurotus ostreatus"
+    italian: "Orecchione"
+    taxon_id: 48210
+    edible: true
+    toxic: false
+    deadly: false
+    season: "ottobre-marzo"
+    habitat: "tronchi latifoglie, cespitoso"
+    class_id: 15
+
+  # ============================================================
+  # TOSSICI / MORTALI
+  # ============================================================
+
+  - id: "amanita_phalloides"
+    latin: "Amanita phalloides"
+    italian: "Tignosa verdognola (MORTALE)"
+    taxon_id: 52135
+    edible: false
+    toxic: true
+    deadly: true
+    season: "luglio-novembre"
+    habitat: "boschi di latifoglie, querce"
+    class_id: 16
+
+  - id: "amanita_verna"
+    latin: "Amanita verna"
+    italian: "Tignosa primaverile (MORTALE)"
+    taxon_id: 350086
+    edible: false
+    toxic: true
+    deadly: true
+    season: "aprile-giugno"
+    habitat: "boschi di latifoglie"
+    class_id: 17
+
+  - id: "amanita_virosa"
+    latin: "Amanita virosa"
+    italian: "Tignosa bianca (MORTALE)"
+    taxon_id: 48688
+    edible: false
+    toxic: true
+    deadly: true
+    season: "luglio-ottobre"
+    habitat: "boschi di conifere e betulle"
+    class_id: 18
+
+  - id: "amanita_muscaria"
+    latin: "Amanita muscaria"
+    italian: "Ovolo malefico (TOSSICO)"
+    taxon_id: 48715
+    edible: false
+    toxic: true
+    deadly: false
+    season: "luglio-novembre"
+    habitat: "boschi di conifere e betulle, 800-1500m"
+    class_id: 19
+
+  - id: "amanita_pantherina"
+    latin: "Amanita pantherina"
+    italian: "Tignosa bruna (TOSSICO)"
+    taxon_id: 48686
+    edible: false
+    toxic: true
+    deadly: false
+    season: "giugno-ottobre"
+    habitat: "boschi di conifere e latifoglie"
+    class_id: 20
+
+  - id: "cortinarius_orellanus"
+    latin: "Cortinarius orellanus"
+    italian: "Cortinario orellano (MORTALE)"
+    taxon_id: 48576
+    edible: false
+    toxic: true
+    deadly: true
+    season: "agosto-ottobre"
+    habitat: "boschi di latifoglie, querce"
+    class_id: 21
+
+  - id: "entoloma_sinuatum"
+    latin: "Entoloma sinuatum"
+    italian: "Entoloma livido (TOSSICO)"
+    taxon_id: 346815
+    edible: false
+    toxic: true
+    deadly: false
+    season: "agosto-ottobre"
+    habitat: "boschi di latifoglie"
+    class_id: 22
+
+  - id: "gyromitra_esculenta"
+    latin: "Gyromitra esculenta"
+    italian: "Falsa spugnola (TOSSICO)"
+    taxon_id: 48580
+    edible: false
+    toxic: true
+    deadly: false
+    season: "marzo-maggio"
+    habitat: "conifere, terreni sabbiosi"
+    class_id: 23
+
+  - id: "omphalotus_olearius"
+    latin: "Omphalotus olearius"
+    italian: "Fungo dell'olivo (TOSSICO)"
+    taxon_id: 146720
+    edible: false
+    toxic: true
+    deadly: false
+    season: "settembre-novembre"
+    habitat: "ceppi di olivo, quercia"
+    class_id: 24
+
+  - id: "hypholoma_fasciculare"
+    latin: "Hypholoma fasciculare"
+    italian: "Falso chiodino (TOSSICO)"
+    taxon_id: 54042
+    edible: false
+    toxic: true
+    deadly: false
+    season: "aprile-novembre"
+    habitat: "ceppi e legno marcescente"
+    class_id: 25
+
+  - id: "boletus_satanas"
+    latin: "Rubroboletus satanas"
+    italian: "Porcino malefico (TOSSICO)"
+    taxon_id: 352451
+    edible: false
+    toxic: true
+    deadly: false
+    season: "giugno-settembre"
+    habitat: "boschi termofili, querce"
+    class_id: 26
+
+  - id: "russula_emetica"
+    latin: "Russula emetica"
+    italian: "Colombina rossa (TOSSICO)"
+    taxon_id: 48352
+    edible: false
+    toxic: true
+    deadly: false
+    season: "luglio-ottobre"
+    habitat: "boschi di conifere e latifoglie"
+    class_id: 27
+
+  - id: "tricholoma_pardinum"
+    latin: "Tricholoma pardinum"
+    italian: "Agarico tigrino (TOSSICO)"
+    taxon_id: 53714
+    edible: false
+    toxic: true
+    deadly: false
+    season: "agosto-ottobre"
+    habitat: "boschi di conifere e latifoglie"
+    class_id: 28
+
+  # ============================================================
+  # COMMESTIBILI COMUNI
+  # ============================================================
+
+  - id: "agaricus_campestris"
+    latin: "Agaricus campestris"
+    italian: "Prataiolo"
+    taxon_id: 57775
+    edible: true
+    toxic: false
+    deadly: false
+    season: "maggio-ottobre"
+    habitat: "prati, pascoli, giardini"
+    class_id: 29
+
+  - id: "suillus_luteus"
+    latin: "Suillus luteus"
+    italian: "Pinarolo"
+    taxon_id: 48704
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-novembre"
+    habitat: "pinete, sotto pini a 2 aghi"
+    class_id: 30
+
+  - id: "xerocomus_badius"
+    latin: "Imleria badia"
+    italian: "Boleto baio"
+    taxon_id: 48699
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-novembre"
+    habitat: "boschi di conifere e latifoglie"
+    class_id: 31
+
+  - id: "coprinus_comatus"
+    latin: "Coprinus comatus"
+    italian: "Coprino chiomato"
+    taxon_id: 48441
+    edible: true
+    toxic: false
+    deadly: false
+    season: "aprile-novembre"
+    habitat: "prati, bordi strade, terreno fertile"
+    class_id: 32
+
+  - id: "amanita_rubescens"
+    latin: "Amanita rubescens"
+    italian: "Tignosa vinata"
+    taxon_id: 48685
+    edible: true
+    toxic: false
+    deadly: false
+    season: "giugno-ottobre"
+    habitat: "boschi di conifere e latifoglie"
+    class_id: 33
+
+  - id: "leccinum_scabrum"
+    latin: "Leccinum scabrum"
+    italian: "Porcinello grigio"
+    taxon_id: 48707
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-ottobre"
+    habitat: "betulle, boschi misti"
+    class_id: 34
+
+  - id: "leccinum_aurantiacum"
+    latin: "Leccinum aurantiacum"
+    italian: "Porcinello rosso"
+    taxon_id: 118839
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-ottobre"
+    habitat: "pioppi, betulle, boschi misti"
+    class_id: 35
+
+  - id: "calocybe_gambosa"
+    latin: "Calocybe gambosa"
+    italian: "Prugnolo"
+    taxon_id: 55721
+    edible: true
+    toxic: false
+    deadly: false
+    season: "aprile-giugno"
+    habitat: "prati, siepi, margini boschivi"
+    class_id: 36
+
+  - id: "lycoperdon_perlatum"
+    latin: "Lycoperdon perlatum"
+    italian: "Vescia gemmata"
+    taxon_id: 48448
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-novembre"
+    habitat: "boschi, radure, prati"
+    class_id: 37
+
+  - id: "lepista_nuda"
+    latin: "Lepista nuda"
+    italian: "Agarico violetto"
+    taxon_id: 62637
+    edible: true
+    toxic: false
+    deadly: false
+    season: "settembre-dicembre"
+    habitat: "boschi di latifoglie e conifere"
+    class_id: 38
+
+  - id: "clitocybe_nebularis"
+    latin: "Clitocybe nebularis"
+    italian: "Cimballo"
+    taxon_id: 54269  # Corretto: Clitocybe nebularis in iNaturalist
+    edible: true
+    toxic: false
+    deadly: false
+    season: "settembre-dicembre"
+    habitat: "boschi di conifere e latifoglie"
+    class_id: 39
+
+  - id: "calvatia_gigantea"
+    latin: "Calvatia gigantea"
+    italian: "Vescia gigante"
+    taxon_id: 48449
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-ottobre"
+    habitat: "prati, campi, giardini"
+    class_id: 40
+
+  # ============================================================
+  # MORTALI (altri)
+  # ============================================================
+
+  - id: "galerina_marginata"
+    latin: "Galerina marginata"
+    italian: "Galerina marginata (MORTALE)"
+    taxon_id: 55931
+    edible: false
+    toxic: true
+    deadly: true
+    season: "agosto-novembre"
+    habitat: "legno marcescente, ceppi di conifere"
+    class_id: 41
+
+  # ============================================================
+  # NON COMMESTIBILI / POCO TOSSICI
+  # ============================================================
+
+  - id: "lactarius_torminosus"
+    latin: "Lactarius torminosus"
+    italian: "Lattario torminoso (TOSSICO)"
+    taxon_id: 48421
+    edible: false
+    toxic: true
+    deadly: false
+    season: "agosto-ottobre"
+    habitat: "betulle, boschi umidi"
+    class_id: 42
+
+  - id: "tylopilus_felleus"
+    latin: "Tylopilus felleus"
+    italian: "Porcino amaro"
+    taxon_id: 48702
+    edible: false
+    toxic: false
+    deadly: false
+    season: "luglio-ottobre"
+    habitat: "conifere e latifoglie"
+    class_id: 43
+
+  - id: "hygrophoropsis_aurantiaca"
+    latin: "Hygrophoropsis aurantiaca"
+    italian: "Falso gallinaccio"
+    taxon_id: 54132
+    edible: false
+    toxic: false
+    deadly: false
+    season: "agosto-novembre"
+    habitat: "conifere, legno marcescente"
+    class_id: 44
+
+  - id: "chlorophyllum_rhacodes"
+    latin: "Chlorophyllum rhacodes"
+    italian: "Mazza di tamburo arrossante"
+    taxon_id: 348192
+    edible: true
+    toxic: false
+    deadly: false
+    season: "luglio-novembre"
+    habitat: "boschi, giardini, parchi"
+    class_id: 45
+
+  - id: "cantharellus_tubaeformis"
+    latin: "Craterellus tubaeformis"
+    italian: "Finferla"
+    taxon_id: 48231
+    edible: true
+    toxic: false
+    deadly: false
+    season: "agosto-novembre"
+    habitat: "boschi umidi di conifere, muschio"
+    class_id: 46
+
+  - id: "sparassis_crispa"
+    latin: "Sparassis crispa"
+    italian: "Sparasside crespa"
+    taxon_id: 53760
+    edible: true
+    toxic: false
+    deadly: false
+    season: "agosto-novembre"
+    habitat: "base di conifere, soprattutto pini"
+    class_id: 47
+
+  - id: "gomphus_clavatus"
+    latin: "Gomphus clavatus"
+    italian: "Cantarello viola"
+    taxon_id: 54575
+    edible: true
+    toxic: false
+    deadly: false
+    season: "agosto-ottobre"
+    habitat: "boschi di conifere, abetaie"
+    class_id: 48
+
+  # ============================================================
+  # CLASSE FALLBACK
+  # ============================================================
+
+  - id: "sconosciuto"
+    latin: "Unknown"
+    italian: "Sconosciuto"
+    taxon_id: null
+    edible: false
+    toxic: false
+    deadly: false
+    season: null
+    habitat: null
+    class_id: 0
+
+# --- Training Detector (YOLOv8n — Stage 1) ---
+detector:
+  model: "yolov8n.pt"  # Nano per mobile
+  image_size: 640
+  epochs: 100
+  batch_size: 16
+  patience: 15  # Early stopping
+  optimizer: "AdamW"
+  learning_rate: 0.001
+  weight_decay: 0.0005
+  warmup_epochs: 5
+  cos_lr: true  # Cosine annealing
+  augment: true  # Augmentation built-in di ultralytics
+  mosaic: 1.0
+  mixup: 0.1
+  classes:
+    - "fungo"  # Singola classe per detection
+  num_workers: 4
+  device: "auto"  # auto = GPU se disponibile, altrimenti CPU
+  project_name: "cercafungo-detector"
+  wandb:
+    enabled: false
+    project: "cercafungo"
+    entity: null
+
+# --- Training Classifier (EfficientNet-B0 — Stage 2) ---
+classifier:
+  model: "efficientnet_b0"
+  image_size: 224
+  num_classes: 49  # 48 specie + sconosciuto
+  epochs: 50
+  batch_size: 32
+  patience: 10
+  learning_rate: 0.0003
+  weight_decay: 0.01
+  warmup_epochs: 3
+  scheduler: "cosine"  # cosine | step | plateau
+  step_size: 10
+  gamma: 0.1
+  freeze_backbone_epochs: 5  # Fine-tune solo head per i primi N epoch
+  dropout: 0.3
+  label_smoothing: 0.1
+  num_workers: 4
+  device: "auto"
+  project_name: "cercafungo-classifier"
+
+# --- Synthetic Data ---
+synthetic:
+  num_images: 7500  # Target immagini sintetiche
+  mushrooms_per_image:
+    min: 1
+    max: 4
+  scale_range:  # Simula distanza 2-5 metri
+    min: 0.05
+    max: 0.35
+  occlusion_probability: 0.3
+  max_occlusion: 0.4  # Max 40% coperto
+  shadow_probability: 0.6
+  blur_probability: 0.3
+  noise_probability: 0.2
+  background_sources:
+    - "https://unsplash.com/s/photos/forest-floor"  # Reference, download manuale
+  output_format: "yolov8"
+
+# --- Dataset Split ---
+dataset:
+  train_ratio: 0.70
+  val_ratio: 0.20
+  test_ratio: 0.10
+  seed: 42
+  min_image_size: 320  # Scarta immagini troppo piccole
+
+# --- Export Mobile ---
+export:
+  tflite:
+    quantize: true
+    quantization: "int8"  # int8 | float16 | dynamic
+    representative_dataset_size: 200  # Immagini per calibrazione INT8
+  coreml:
+    compute_units: "ALL"  # ALL | CPU_AND_NE | CPU_ONLY
+    minimum_deployment_target: "iOS15"
+  onnx:
+    opset: 17
+    simplify: true
+  test_inference: true
+  copy_to_app: true
+
+# --- Annotation Tool ---
+annotation:
+  default_class: 0  # classe "fungo" per detection
+  bbox_color: [0, 255, 0]  # Verde
+  bbox_thickness: 2
+  font_scale: 0.6
+  window_width: 1280
+  window_height: 960
+  save_format: "yolo"  # yolo | coco | voc
+
+# --- Camera Collector ---
+camera:
+  default_resolution: [1280, 720]
+  jpeg_quality: 95
+  save_gps: true
+  auto_prefix: "cercafungo"
+
+# --- Pipeline Orchestrator ---
+pipeline:
+  stages:
+    - name: "download"
+      description: "Scarica dataset da iNaturalist, Roboflow e Flickr"
+      scripts:
+        - "dataset.download_inaturalist"
+        - "dataset.download_roboflow"
+        - "dataset.download_flickr"
+        - "dataset.download_backgrounds"
+    - name: "prepare"
+      description: "Prepara dataset sintetico e unificato"
+      scripts:
+        - "dataset.synthetic_generator"
+        - "dataset.prepare_dataset"
+    - name: "train"
+      description: "Addestra detector e classificatore"
+      scripts:
+        - "training.train_detector"
+        - "training.train_classifier"
+    - name: "evaluate"
+      description: "Valuta i modelli addestrati"
+      scripts:
+        - "training.evaluate"
+    - name: "export"
+      description: "Esporta modelli per mobile"
+      scripts:
+        - "training.export_mobile"

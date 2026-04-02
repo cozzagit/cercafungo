@@ -1,0 +1,269 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════
+   CERCAFUNGO Design System
+   Earthy, natural, forest-inspired
+   ═══════════════════════════════════════════ */
+
+:root {
+  /* Forest palette */
+  --forest-50: #f0f5ec;
+  --forest-100: #dce8d4;
+  --forest-200: #b8d1a9;
+  --forest-300: #8ab775;
+  --forest-400: #5e9a41;
+  --forest-500: #4a7c2e;
+  --forest-600: #2d5016;
+  --forest-700: #234012;
+  --forest-800: #1a300d;
+  --forest-900: #112008;
+
+  /* Porcino amber */
+  --amber-50: #fdf6eb;
+  --amber-100: #f9e8cc;
+  --amber-200: #f0d09a;
+  --amber-300: #e5b465;
+  --amber-400: #d9983a;
+  --amber-500: #c68b3e;
+  --amber-600: #a67030;
+  --amber-700: #845524;
+  --amber-800: #643d1a;
+  --amber-900: #452a12;
+
+  /* Bark */
+  --bark-50: #f5f0e8;
+  --bark-100: #e8dfd2;
+  --bark-200: #d1bfa5;
+  --bark-300: #b39a78;
+  --bark-400: #8a6d4a;
+  --bark-500: #6b5038;
+  --bark-600: #53392a;
+  --bark-700: #3e2b1c;
+  --bark-800: #2c1e14;
+  --bark-900: #1a110c;
+
+  /* Cream */
+  --cream-50: #fdfcf9;
+  --cream-100: #f9f6f0;
+  --cream-200: #f5f0e8;
+  --cream-300: #ede5d7;
+  --cream-400: #e0d4c0;
+  --cream-500: #cfc0a6;
+
+  /* Semantic tokens */
+  --background: var(--cream-200);
+  --foreground: var(--bark-700);
+  --muted: var(--cream-300);
+  --muted-foreground: var(--bark-400);
+  --border: var(--cream-400);
+  --input: var(--cream-300);
+  --ring: var(--forest-500);
+  --primary: var(--forest-600);
+  --primary-hover: var(--forest-700);
+  --primary-foreground: #ffffff;
+  --secondary: var(--forest-500);
+  --secondary-foreground: #ffffff;
+  --accent: var(--amber-500);
+  --accent-hover: var(--amber-600);
+  --accent-foreground: #ffffff;
+  --success: #27ae60;
+  --warning: var(--amber-500);
+  --danger: #c0392b;
+  --danger-light: #fdecea;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-forest-50: var(--forest-50);
+  --color-forest-100: var(--forest-100);
+  --color-forest-200: var(--forest-200);
+  --color-forest-300: var(--forest-300);
+  --color-forest-400: var(--forest-400);
+  --color-forest-500: var(--forest-500);
+  --color-forest-600: var(--forest-600);
+  --color-forest-700: var(--forest-700);
+  --color-forest-800: var(--forest-800);
+  --color-forest-900: var(--forest-900);
+  --color-amber-50: var(--amber-50);
+  --color-amber-100: var(--amber-100);
+  --color-amber-200: var(--amber-200);
+  --color-amber-300: var(--amber-300);
+  --color-amber-400: var(--amber-400);
+  --color-amber-500: var(--amber-500);
+  --color-amber-600: var(--amber-600);
+  --color-amber-700: var(--amber-700);
+  --color-amber-800: var(--amber-800);
+  --color-amber-900: var(--amber-900);
+  --color-bark-50: var(--bark-50);
+  --color-bark-100: var(--bark-100);
+  --color-bark-200: var(--bark-200);
+  --color-bark-300: var(--bark-300);
+  --color-bark-400: var(--bark-400);
+  --color-bark-500: var(--bark-500);
+  --color-bark-600: var(--bark-600);
+  --color-bark-700: var(--bark-700);
+  --color-bark-800: var(--bark-800);
+  --color-bark-900: var(--bark-900);
+  --color-cream-50: var(--cream-50);
+  --color-cream-100: var(--cream-100);
+  --color-cream-200: var(--cream-200);
+  --color-cream-300: var(--cream-300);
+  --color-cream-400: var(--cream-400);
+  --color-cream-500: var(--cream-500);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-danger-light: var(--danger-light);
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+}
+
+/* Base */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle paper texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bark-200);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bark-300);
+}
+
+/* ═══════════════════════════════════════════
+   Animations
+   ═══════════════════════════════════════════ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(45, 80, 22, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(45, 80, 22, 0.4); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out both;
+}
+
+.animate-slide-in-left {
+  animation: slideInLeft 0.6s ease-out both;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Staggered children animation */
+.stagger-children > * {
+  animation: fadeInUp 0.5s ease-out both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 100ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 200ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 300ms; }
+.stagger-children > *:nth-child(5) { animation-delay: 400ms; }
+.stagger-children > *:nth-child(6) { animation-delay: 500ms; }
+
+/* ═══════════════════════════════════════════
+   Edibility badge colors
+   ═══════════════════════════════════════════ */
+
+.edibility-ottimo {
+  background-color: #27ae60;
+  color: white;
+}
+.edibility-buono {
+  background-color: #2ecc71;
+  color: white;
+}
+.edibility-commestibile {
+  background-color: #f39c12;
+  color: white;
+}
+.edibility-non_commestibile {
+  background-color: #95a5a6;
+  color: white;
+}
+.edibility-tossico {
+  background-color: #e67e22;
+  color: white;
+}
+.edibility-mortale {
+  background-color: #c0392b;
+  color: white;
+}

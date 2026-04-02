@@ -1,0 +1,54 @@
+{
+  "expo": {
+    "name": "CercaFungo",
+    "slug": "cercafungo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/splash.png",
+    "scheme": "cercafungo",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2D5016"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.cercafungo.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "CercaFungo utilizza la fotocamera per rilevare i funghi nel sottobosco.",
+        "NSLocationWhenInUseUsageDescription": "CercaFungo salva la posizione dei ritrovamenti sulla mappa.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "CercaFungo traccia il percorso durante la ricerca."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/splash.png",
+        "backgroundColor": "#2D5016"
+      },
+      "package": "com.cercafungo.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-location",
+      "expo-sqlite",
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "CercaFungo ha bisogno della fotocamera per rilevare i funghi.",
+          "enableMicrophonePermission": false
+        }
+      ],
+      "react-native-reanimated"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
