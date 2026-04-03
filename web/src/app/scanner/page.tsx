@@ -71,6 +71,7 @@ export default function ScannerPage() {
   });
   const [showLookalikeOverlay, setShowLookalikeOverlay] = useState(false);
   const [demoMode, setDemoMode] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [scannerMode, setScannerModeState] = useState<ScannerMode>('standard');
 
   // ── Camera setup ─────────────────────────────────────────────
@@ -172,12 +173,13 @@ export default function ScannerPage() {
     // Clear previous drawings
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // Throttle inference to ~8 FPS (125ms interval)
+    // Skip inference when paused — still draw existing boxes
     const now = performance.now();
     const INFERENCE_INTERVAL_MS = 125;
 
     if (
       modelLoaded &&
+      !paused &&
       !inferenceRunning.current &&
       now - lastInferenceTime.current > INFERENCE_INTERVAL_MS
     ) {
@@ -560,7 +562,7 @@ export default function ScannerPage() {
   // ── Main scanner UI ──────────────────────────────────────────
 
   return (
-    <div className="fixed inset-0 bg-black overflow-hidden select-none">
+    <div className="fixed inset-0 bottom-16 bg-black overflow-hidden select-none">
       {/* Camera video */}
       <video
         ref={videoRef}
@@ -605,8 +607,29 @@ export default function ScannerPage() {
 
           {/* Status indicators */}
           <div className="flex items-center gap-3">
-            {/* FPS counter */}
+            {/* Pause/Play toggle */}
             {modelLoaded && (
+              <button
+                onClick={() => setPaused(p => !p)}
+                className={`w-8 h-8 flex items-center justify-center rounded-full transition-colors ${
+                  paused ? 'bg-amber-500 text-white' : 'bg-white/15 text-white/80'
+                }`}
+                title={paused ? 'Riprendi scansione' : 'Metti in pausa'}
+              >
+                {paused ? (
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                ) : (
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+                  </svg>
+                )}
+              </button>
+            )}
+
+            {/* FPS counter */}
+            {modelLoaded && !paused && (
               <span className="text-xs text-white/60 font-mono">{fps} FPS</span>
             )}
 
@@ -893,6 +916,20 @@ export default function ScannerPage() {
           </button>
         </div>
       </div>
+
+      {/* Paused overlay */}
+      {paused && !showDisclaimer && (
+        <div className="absolute inset-0 z-30 bg-black/40 flex items-center justify-center pointer-events-none">
+          <div className="bg-black/70 backdrop-blur-sm px-6 py-3 rounded-2xl border border-white/20">
+            <p className="text-white font-bold text-lg flex items-center gap-2">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+              </svg>
+              Scansione in pausa
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Safety disclaimer overlay */}
       {showDisclaimer && (
