@@ -19,6 +19,7 @@ import {
 } from '@/components/scanner/lookalike-comparison';
 import { SafetyBanner } from '@/components/scanner/safety-banner';
 import { SPECIES_DATABASE } from '@/lib/species-data';
+import { saveScan, createThumbnail } from '@/lib/scan-store';
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -351,30 +352,58 @@ export default function ScannerPage() {
     const blob = await captureSnapshot(videoRef.current);
     const imageUrl = blob ? URL.createObjectURL(blob) : null;
 
-    const topDetection = detections.length > 0
+    const topDet = detections.length > 0
       ? detections.reduce((best, d) => (d.confidence > best.confidence ? d : best))
       : null;
 
     const saved: SavedDetection = {
       id: `det-${Date.now()}`,
       timestamp: new Date(),
-      confidence: topDetection?.confidence ?? 0,
-      label: topDetection?.label ?? 'Nessun rilevamento',
+      confidence: topDet?.confidence ?? 0,
+      label: topDet?.label ?? 'Nessun rilevamento',
       imageUrl,
     };
 
     setSavedDetections((prev) => [saved, ...prev]);
     setShowBottomSheet(true);
 
-    // Auto-show lookalike panel if the detected species has dangerous lookalikes
-    const capturedSpecies = topDetection
+    // Persist to scan-store (thumbnail + GPS for ML feedback)
+    const thumbnail = await createThumbnail(videoRef.current);
+    const matchedSpecies = topDet
       ? SPECIES_DATABASE.find(
           (s) =>
-            s.italianName.toLowerCase() === topDetection.label.toLowerCase() ||
-            s.id === topDetection.label.toLowerCase().replace(/\s+/g, '-')
+            s.italianName.toLowerCase() === topDet.label.toLowerCase() ||
+            s.id === topDet.label.toLowerCase().replace(/\s+/g, '-'),
         )
       : undefined;
-    if (capturedSpecies && shouldShowLookalikes(capturedSpecies, topDetection?.confidence)) {
+
+    // Grab GPS if available
+    let lat: number | null = null;
+    let lng: number | null = null;
+    if (navigator.geolocation) {
+      try {
+        const pos = await new Promise<GeolocationPosition>((resolve, reject) =>
+          navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 3000 }),
+        );
+        lat = pos.coords.latitude;
+        lng = pos.coords.longitude;
+      } catch {
+        // GPS not available — fine
+      }
+    }
+
+    saveScan({
+      detectedLabel: topDet?.label ?? 'Nessun rilevamento',
+      confidence: topDet?.confidence ?? 0,
+      speciesId: matchedSpecies?.id ?? null,
+      scannerMode: scannerMode,
+      thumbnail,
+      lat,
+      lng,
+    });
+
+    // Auto-show lookalike panel if the detected species has dangerous lookalikes
+    if (matchedSpecies && shouldShowLookalikes(matchedSpecies, topDet?.confidence)) {
       setShowLookalikeOverlay(true);
     }
 
