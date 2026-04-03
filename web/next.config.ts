@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   turbopack: {},
 
   // Headers for SharedArrayBuffer (needed by ONNX Runtime WASM threads)
+  // Using 'credentialless' instead of 'require-corp' so cross-origin
+  // resources (map tiles, CDN assets) still load without CORP headers.
   async headers() {
     return [
       {
@@ -16,7 +18,7 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Cross-Origin-Embedder-Policy',
-            value: 'require-corp',
+            value: 'credentialless',
           },
         ],
       },
