@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { InstallPrompt } from "@/components/pwa/install-prompt";
+import { ServiceWorkerRegister } from "@/components/pwa/sw-register";
 import "./globals.css";
 
 const inter = Inter({
@@ -27,6 +29,12 @@ export const metadata: Metadata = {
     "identificazione funghi",
   ],
   authors: [{ name: "CercaFungo" }],
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "CercaFungo",
+  },
   openGraph: {
     title: "CercaFungo — Il tuo assistente AI per i funghi",
     description:
@@ -46,6 +54,21 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
+  icons: {
+    icon: "/icons/icon-192.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#2d5016",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -57,6 +80,8 @@ export default function RootLayout({
     <html lang="it" className={`${inter.variable} ${playfair.variable}`} style={{ scrollBehavior: 'smooth' }}>
       <body className="min-h-screen antialiased">
         {children}
+        <ServiceWorkerRegister />
+        <InstallPrompt />
       </body>
     </html>
   );

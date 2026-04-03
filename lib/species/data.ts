@@ -4,7 +4,7 @@
  * Focus: specie della Valtellina e delle Alpi/Prealpi italiane.
  * Dati accurati per identificazione, sicurezza alimentare e ecologia.
  *
- * ATTENZIONE: Questo database e' uno strumento di supporto.
+ * ATTENZIONE: Questo database è uno strumento di supporto.
  * NON sostituisce il parere di un micologo esperto o dell'ASL.
  * In caso di dubbio, NON consumare il fungo.
  */
@@ -91,15 +91,15 @@ export const SPECIES_DATABASE: Species[] = [
     edibilityNote:
       'Eccellente sia crudo (carpaccio) che cotto. Ottimo essiccato. Il re dei funghi della Valtellina, protagonista di pizzoccheri e risotti.',
     capDescription:
-      'Cappello emisferico da giovane, poi convesso e infine piano-convesso a maturita. Cuticola liscia, leggermente viscida con umidita, opaca a secco. Margine sottile, regolare, spesso piu chiaro. Nei giovani esemplari il bordo e spesso biancastro.',
+      'Cappello emisferico da giovane, poi convesso e infine piano-convesso a maturità. Cuticola liscia, leggermente viscida con umidità, opaca a secco. Margine sottile, regolare, spesso più chiaro. Nei giovani esemplari il bordo e spesso biancastro.',
     capColor: ['bruno', 'marrone', 'nocciola', 'bruno-rossastro', 'beige'],
     capDiameterCm: [5, 30],
     stemDescription:
-      'Robusto, ventricoso (panciuto) soprattutto da giovane, poi piu slanciato. Colore biancastro con reticolo a maglie chiare nella parte superiore. Pieno, sodo, mai cavo.',
+      'Robusto, ventricoso (panciuto) soprattutto da giovane, poi più slanciato. Colore biancastro con reticolo a maglie chiare nella parte superiore. Pieno, sodo, mai cavo.',
     gillsDescription:
-      'Tubuli e pori (non lamelle). Tubuli lunghi, liberi o quasi, bianchi da giovane poi giallo-verdastri a maturita. Pori piccoli, rotondi, dello stesso colore dei tubuli. MAI rosa o rossi.',
+      'Tubuli e pori (non lamelle). Tubuli lunghi, liberi o quasi, bianchi da giovane poi giallo-verdastri a maturità. Pori piccoli, rotondi, dello stesso colore dei tubuli. MAI rosa o rossi.',
     fleshDescription:
-      'Bianca, immutabile al taglio (non vira). Soda e compatta da giovane, poi piu molle a maturita. Odore gradevole fungino, sapore dolce di nocciola.',
+      'Bianca, immutabile al taglio (non vira). Soda e compatta da giovane, poi più molle a maturità. Odore gradevole fungino, sapore dolce di nocciola.',
     sporeColor: 'Bruno-olivastro',
     habitat: ['faggeta', 'abetaia', 'pecceta', 'bosco misto', 'castagneto'],
     altitude: [400, 1800],
@@ -126,11 +126,11 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'tylopilus-felleus',
         dangerLevel: 'basso',
         differences:
-          'Il Tylopilus felleus (Porcino falso/amaro) ha pori rosa a maturita, reticolo scuro sul gambo e sapore amarissimo. Basta assaggiare un pezzetto di carne (sputandolo) per distinguerlo.',
+          'Il Tylopilus felleus (Porcino falso/amaro) ha pori rosa a maturità, reticolo scuro sul gambo e sapore amarissimo. Basta assaggiare un pezzetto di carne (sputandolo) per distinguerlo.',
       },
     ],
     funFact:
-      'In Valtellina il porcino e detto "brisa" ed e talmente importante che esistono sagre dedicate. Un singolo esemplare puo pesare oltre 2 kg. Il record italiano supera i 3 kg.',
+      'In Valtellina il porcino e detto "brisa" ed e talmente importante che esistono sagre dedicate. Un singolo esemplare può pesare oltre 2 kg. Il record italiano supera i 3 kg.',
     iNaturalistTaxonId: 48701,
     modelClassId: 1,
   },
@@ -149,13 +149,13 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Boletaceae',
     edibility: 'ottimo',
     edibilityNote:
-      'Considerato da molti il piu pregiato tra i porcini. Carne compatta e profumata, eccezionale crudo a fettine sottili.',
+      'Considerato da molti il più pregiato tra i porcini. Carne compatta e profumata, eccezionale crudo a fettine sottili.',
     capDescription:
-      'Cappello emisferico poi convesso. Cuticola asciutta, vellutata, talvolta screpolata. Piu scuro del B. edulis.',
+      'Cappello emisferico poi convesso. Cuticola asciutta, vellutata, talvolta screpolata. Più scuro del B. edulis.',
     capColor: ['bruno-scuro', 'nerastro', 'bronzo', 'bruno-fuliggine'],
     capDiameterCm: [5, 25],
     stemDescription:
-      'Robusto, ventricoso, color ocra-brunastro con reticolo fine concolore o leggermente piu chiaro.',
+      'Robusto, ventricoso, color ocra-brunastro con reticolo fine concolore o leggermente più chiaro.',
     gillsDescription:
       'Tubuli e pori bianchi da giovane, poi giallo-olivastri. Pori piccoli, rotondi.',
     fleshDescription:
@@ -178,7 +178,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      "Detto \"re dei porcini\" per la consistenza superiore della carne. In Valtellina e meno comune dell'edulis perche predilige quote piu basse e boschi termofili.",
+      "Detto \"re dei porcini\" per la consistenza superiore della carne. In Valtellina e meno comune dell'edulis perché predilige quote più basse e boschi termofili.",
     iNaturalistTaxonId: 116856,
     modelClassId: 2,
   },
@@ -200,7 +200,7 @@ export const SPECIES_DATABASE: Species[] = [
     stemDescription:
       'Robusto, panciuto, color bruno-rossastro chiaro con reticolo fine, spesso poco evidente.',
     gillsDescription:
-      'Tubuli e pori bianchi da giovane, giallo-olivastri a maturita.',
+      'Tubuli e pori bianchi da giovane, giallo-olivastri a maturità.',
     fleshDescription:
       'Bianca, immutabile, soda. Sotto la cuticola leggermente rosata. Odore fungino intenso.',
     sporeColor: 'Bruno-olivastro',
@@ -221,7 +221,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      'E il porcino piu tipico delle alte quote in Valtellina, spesso trovato sotto pini cembri sopra i 1500 metri. Puo raggiungere dimensioni notevoli.',
+      'E il porcino più tipico delle alte quote in Valtellina, spesso trovato sotto pini cembri sopra i 1500 metri. Può raggiungere dimensioni notevoli.',
     iNaturalistTaxonId: 326763,
     modelClassId: 3,
   },
@@ -249,7 +249,7 @@ export const SPECIES_DATABASE: Species[] = [
     gillsDescription:
       'Tubuli bianchi poi giallo-olivastri. Pori piccoli, concolori.',
     fleshDescription:
-      'Bianca, molle, immutabile. Odore gradevole, sapore dolce. Piu tenera degli altri porcini.',
+      'Bianca, molle, immutabile. Odore gradevole, sapore dolce. Più tenera degli altri porcini.',
     sporeColor: 'Bruno-olivastro',
     habitat: ['querceto', 'castagneto', 'faggeta', 'bosco misto'],
     altitude: [200, 1200],
@@ -264,11 +264,11 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'tylopilus-felleus',
         dangerLevel: 'basso',
         differences:
-          'Il T. felleus ha pori rosa e reticolo piu scuro. Assaggiare un pezzetto di carne: se amaro, e il felleus.',
+          'Il T. felleus ha pori rosa e reticolo più scuro. Assaggiare un pezzetto di carne: se amaro, e il felleus.',
       },
     ],
     funFact:
-      'E il primo porcino a comparire, gia da maggio-giugno, anticipando i cugini di settembre. In annate favorevoli si trova gia a bassa quota in Valtellina.',
+      'E il primo porcino a comparire, già da maggio-giugno, anticipando i cugini di settembre. In annate favorevoli si trova già a bassa quota in Valtellina.',
     iNaturalistTaxonId: 326762,
     modelClassId: 4,
   },
@@ -291,7 +291,7 @@ export const SPECIES_DATABASE: Species[] = [
     edibilityNote:
       'Eccellente commestibile, praticamente privo di parassiti. Ottimo trifolato, in risotti e con la polenta. Non richiede precauzioni particolari.',
     capDescription:
-      'Cappello inizialmente convesso poi imbutiforme a maturita, con margine ondulato e irregolare. Superficie liscia e asciutta.',
+      'Cappello inizialmente convesso poi imbutiforme a maturità, con margine ondulato e irregolare. Superficie liscia e asciutta.',
     capColor: ['giallo', 'giallo-uovo', 'giallo-arancio'],
     capDiameterCm: [3, 10],
     stemDescription:
@@ -320,13 +320,13 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'omphalotus-olearius',
         dangerLevel: 'alto',
         differences:
-          "L'Omphalotus olearius ha vere lamelle (non pliche), cresce su legno (ceppaie), e piu grande e bioluminescente al buio. Il gallinaccio ha pseudolamelle spesse e decorrenti e cresce a terra.",
+          "L'Omphalotus olearius ha vere lamelle (non pliche), cresce su legno (ceppaie), e più grande e bioluminescente al buio. Il gallinaccio ha pseudolamelle spesse e decorrenti e cresce a terra.",
       },
       {
         speciesId: 'hygrophoropsis-aurantiaca',
         dangerLevel: 'basso',
         differences:
-          "L'Hygrophoropsis aurantiaca (Falso gallinaccio) ha lamelle vere, sottili e fitte, colore arancione piu intenso. Non tossico ma sgradevole.",
+          "L'Hygrophoropsis aurantiaca (Falso gallinaccio) ha lamelle vere, sottili e fitte, colore arancione più intenso. Non tossico ma sgradevole.",
       },
     ],
     funFact:
@@ -349,7 +349,7 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Amanitaceae',
     edibility: 'ottimo',
     edibilityNote:
-      'Il piu pregiato in assoluto. Eccellente crudo in insalata quando giovane. ATTENZIONE: da giovane (stadio di "uovo") e confondibile con le Amanite mortali.',
+      'Il più pregiato in assoluto. Eccellente crudo in insalata quando giovane. ATTENZIONE: da giovane (stadio di "uovo") e confondibile con le Amanite mortali.',
     capDescription:
       'Cappello inizialmente chiuso nell\'uovo (volva), poi emisferico, infine piano-convesso. Cuticola liscia, lucida, brillante, margine striato.',
     capColor: ['arancione vivo', 'rosso-arancio', 'giallo-arancio'],
@@ -380,11 +380,11 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'amanita-phalloides',
         dangerLevel: 'mortale',
         differences:
-          "PERICOLO MORTALE allo stadio di uovo chiuso! L'uovo dell'A. phalloides, tagliato a meta, mostra cappello verdastro. L'uovo dell'A. caesarea mostra cappello arancione. MAI raccogliere Amanite allo stadio di uovo se non si e esperti.",
+          "PERICOLO MORTALE allo stadio di uovo chiuso! L'uovo dell'A. phalloides, tagliato a metà, mostra cappello verdastro. L'uovo dell'A. caesarea mostra cappello arancione. MAI raccogliere Amanite allo stadio di uovo se non si e esperti.",
       },
     ],
     funFact:
-      "Gia gli antichi Romani lo consideravano il fungo piu pregiato. L'imperatore Claudio ne era ghiotto (e forse fu avvelenato con un piatto di ovoli dalla moglie Agrippina). In Valtellina e raro, piu comune a basse quote.",
+      "Già gli antichi Romani lo consideravano il fungo più pregiato. L'imperatore Claudio ne era ghiotto (e forse fu avvelenato con un piatto di ovoli dalla moglie Agrippina). In Valtellina e raro, più comune a basse quote.",
     iNaturalistTaxonId: 48683,
     modelClassId: 6,
   },
@@ -425,7 +425,7 @@ export const SPECIES_DATABASE: Species[] = [
     visibility: 'bassa',
     confusableWith: [],
     funFact:
-      "Chiamato \"trombetta dei morti\" perche appare verso il 1-2 novembre (giorno dei morti). Difficilissimo da trovare per il colore mimetico con la lettiera. Una volta individuato il primo, se ne trovano decine. In Valtellina abbonda nelle faggete.",
+      "Chiamato \"trombetta dei morti\" perché appare verso il 1-2 novembre (giorno dei morti). Difficilissimo da trovare per il colore mimetico con la lettiera. Una volta individuato il primo, se ne trovano decine. In Valtellina abbonda nelle faggete.",
     iNaturalistTaxonId: 48229,
     modelClassId: 7,
   },
@@ -461,7 +461,7 @@ export const SPECIES_DATABASE: Species[] = [
     visibility: 'media',
     confusableWith: [],
     funFact:
-      'Inconfondibile grazie agli aculei sotto il cappello (al posto delle lamelle). Nessun fungo tossico ha questo tipo di imenoforo. E uno dei funghi piu sicuri da raccogliere per i principianti.',
+      'Inconfondibile grazie agli aculei sotto il cappello (al posto delle lamelle). Nessun fungo tossico ha questo tipo di imenoforo. E uno dei funghi più sicuri da raccogliere per i principianti.',
     iNaturalistTaxonId: 47453,
     modelClassId: 8,
   },
@@ -515,7 +515,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      'Puo raggiungere i 40 cm di altezza, rendendola una delle specie piu imponenti dei nostri prati. In Valtellina si trova nei prati montani e ai margini dei boschi. Il cappello impanato e detto "cotoletta di fungo".',
+      'Può raggiungere i 40 cm di altezza, rendendola una delle specie più imponenti dei nostri prati. In Valtellina si trova nei prati montani e ai margini dei boschi. Il cappello impanato e detto "cotoletta di fungo".',
     iNaturalistTaxonId: 48178,
     modelClassId: 9,
   },
@@ -565,17 +565,17 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'hypholoma-fasciculare',
         dangerLevel: 'alto',
         differences:
-          "L'Hypholoma fasciculare (Falso chiodino) ha lamelle giallo-verdastre (mai bianche), colore piu acceso giallo-zolfo, sapore amaro e manca di anello. I chiodini veri hanno anello e lamelle chiare.",
+          "L'Hypholoma fasciculare (Falso chiodino) ha lamelle giallo-verdastre (mai bianche), colore più acceso giallo-zolfo, sapore amaro e manca di anello. I chiodini veri hanno anello e lamelle chiare.",
       },
       {
         speciesId: 'galerina-marginata',
         dangerLevel: 'mortale',
         differences:
-          "La Galerina marginata e MORTALE (stesse tossine dell'A. phalloides). Cresce su legno, ha anello, ma e piu piccola, brunastra uniforme, senza squame sul cappello e cresce in gruppetti ridotti (non in grossi cespi).",
+          "La Galerina marginata e MORTALE (stesse tossine dell'A. phalloides). Cresce su legno, ha anello, ma e più piccola, brunastra uniforme, senza squame sul cappello e cresce in gruppetti ridotti (non in grossi cespi).",
       },
     ],
     funFact:
-      "I chiodini sono in realta un parassita temibile delle piante forestali. L'Armillaria e considerata l'organismo vivente piu grande del mondo: un singolo individuo nello stato dell'Oregon (USA) si estende per 9 km quadrati.",
+      "I chiodini sono in realtà un parassita temibile delle piante forestali. L'Armillaria e considerata l'organismo vivente più grande del mondo: un singolo individuo nello stato dell'Oregon (USA) si estende per 9 km quadrati.",
     iNaturalistTaxonId: 48206,
     modelClassId: 10,
   },
@@ -604,7 +604,7 @@ export const SPECIES_DATABASE: Species[] = [
     ],
     capDiameterCm: [4, 15],
     stemDescription:
-      'Cilindrico, corto, presto cavo, arancione con scrobicoli (fossette) piu scure.',
+      'Cilindrico, corto, presto cavo, arancione con scrobicoli (fossette) più scure.',
     gillsDescription:
       'Lamelle fitte, decorrenti, arancioni. Se spezzate emettono latice arancione carota che vira al verde dopo qualche ora.',
     fleshDescription:
@@ -627,7 +627,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      "Il nome \"sanguinello\" deriva dal latice arancione che ricorda il sangue. In Spagna e il fungo piu raccolto e consumato (\"niscalo\"). In Valtellina si trova nelle pinete da agosto a novembre.",
+      "Il nome \"sanguinello\" deriva dal latice arancione che ricorda il sangue. In Spagna e il fungo più raccolto e consumato (\"niscalo\"). In Valtellina si trova nelle pinete da agosto a novembre.",
     iNaturalistTaxonId: 48425,
     modelClassId: 11,
   },
@@ -676,7 +676,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      'Appaiono misteriosamente dopo gli incendi boschivi. In Valtellina si trovano in primavera, spesso nei frutteti e lungo i torrenti. Sono tra i funghi piu costosi al mondo: fino a 500 euro/kg da freschi.',
+      'Appaiono misteriosamente dopo gli incendi boschivi. In Valtellina si trovano in primavera, spesso nei frutteti e lungo i torrenti. Sono tra i funghi più costosi al mondo: fino a 500 euro/kg da freschi.',
     iNaturalistTaxonId: 48577,
     modelClassId: 12,
   },
@@ -694,7 +694,7 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Tricholomataceae',
     edibility: 'commestibile',
     edibilityNote:
-      'Commestibile discreto. Controverso: studi recenti suggeriscono possibile tossicita cumulativa (rabdomiolisi) in caso di consumo eccessivo. Non consumare in grandi quantita per piu giorni consecutivi.',
+      'Commestibile discreto. Controverso: studi recenti suggeriscono possibile tossicità cumulativa (rabdomiolisi) in caso di consumo eccessivo. Non consumare in grandi quantità per più giorni consecutivi.',
     capDescription:
       'Cappello campanulato poi piano-convesso, con umbone basso. Cuticola asciutta, fibrillosa, con fibrille radiali grigio-scure.',
     capColor: ['grigio', 'grigio-topo', 'grigio-brunastro'],
@@ -719,7 +719,7 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'tricholoma-pardinum',
         dangerLevel: 'alto',
         differences:
-          'Il T. pardinum (Agarico tigrino) e molto piu grande (cap 8-15 cm), ha squame concentriche evidenti sul cappello e cresce sotto latifoglie, non conifere.',
+          'Il T. pardinum (Agarico tigrino) e molto più grande (cap 8-15 cm), ha squame concentriche evidenti sul cappello e cresce sotto latifoglie, non conifere.',
       },
     ],
     funFact:
@@ -813,7 +813,7 @@ export const SPECIES_DATABASE: Species[] = [
     visibility: 'alta',
     confusableWith: [],
     funFact:
-      'E il fungo coltivato piu facile in assoluto: cresce sulla paglia, su fondi di caffe, perfino su libri vecchi! In Valtellina si trova su ceppaie di latifoglie fino a tarda stagione. Sopravvive anche al gelo.',
+      'E il fungo coltivato più facile in assoluto: cresce sulla paglia, su fondi di caffè, perfino su libri vecchi! In Valtellina si trova su ceppaie di latifoglie fino a tarda stagione. Sopravvive anche al gelo.',
     iNaturalistTaxonId: 48210,
     modelClassId: 15,
   },
@@ -835,9 +835,9 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Amanitaceae',
     edibility: 'mortale',
     edibilityNote:
-      "FUNGO PIU MORTALE D'EUROPA. Responsabile del 90% delle morti da avvelenamento da funghi. Le tossine (amatossine) distruggono il fegato. I sintomi compaiono dopo 6-24 ore quando il danno e gia avanzato. NESSUN ANTIDOTO SICURO. UN SINGOLO CAPPELLO PUO UCCIDERE.",
+      "FUNGO PIÙ MORTALE D'EUROPA. Responsabile del 90% delle morti da avvelenamento da funghi. Le tossine (amatossine) distruggono il fegato. I sintomi compaiono dopo 6-24 ore quando il danno è già avanzato. NESSUN ANTIDOTO SICURO. UN SINGOLO CAPPELLO PUÒ UCCIDERE.",
     capDescription:
-      'Cappello emisferico poi piano-convesso. Cuticola liscia, fibrillosa, viscida con umidita. Senza verruche o con rari residui di velo.',
+      'Cappello emisferico poi piano-convesso. Cuticola liscia, fibrillosa, viscida con umidità. Senza verruche o con rari residui di velo.',
     capColor: [
       'verde-oliva',
       'verdognolo',
@@ -849,7 +849,7 @@ export const SPECIES_DATABASE: Species[] = [
     stemDescription:
       'Slanciato, bianco con zebrature verdastre, con anello membranoso bianco nella parte superiore. Base con volva bianca a sacco molto evidente.',
     gillsDescription:
-      'Lamelle fitte, libere, bianche (MAI rosa, MAI verdi). Restano bianche anche a maturita.',
+      'Lamelle fitte, libere, bianche (MAI rosa, MAI verdi). Restano bianche anche a maturità.',
     fleshDescription:
       'Bianca, immutabile. Odore debole, dolciastro in vecchiaia (miele rancido). Sapore GRADEVOLE — questo e il pericolo: non sa di cattivo.',
     sporeColor: 'Bianco',
@@ -872,7 +872,7 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'amanita-caesarea',
         dangerLevel: 'mortale',
         differences:
-          "L'A. caesarea (commestibile) ha cappello arancione, gambo e lamelle GIALLI, volva bianca. L'A. phalloides ha cappello verdastro, gambo e lamelle BIANCHI. Allo stadio di uovo: tagliare a meta, se sotto il velo il cappello e verde = phalloides.",
+          "L'A. caesarea (commestibile) ha cappello arancione, gambo e lamelle GIALLI, volva bianca. L'A. phalloides ha cappello verdastro, gambo e lamelle BIANCHI. Allo stadio di uovo: tagliare a metà, se sotto il velo il cappello e verde = phalloides.",
       },
       {
         speciesId: 'russula-cyanoxantha',
@@ -911,7 +911,7 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Amanitaceae',
     edibility: 'mortale',
     edibilityNote:
-      "MORTALE come l'A. phalloides. Stesse tossine (amatossine). Particolarmente insidiosa perche tutta bianca e facilmente confusa con prataioli e agarici.",
+      "MORTALE come l'A. phalloides. Stesse tossine (amatossine). Particolarmente insidiosa perché tutta bianca e facilmente confusa con prataioli e agarici.",
     capDescription:
       'Cappello emisferico poi piano, interamente bianco. Cuticola liscia, sericea, leggermente viscida.',
     capColor: ['bianco puro', 'bianco-avorio'],
@@ -939,7 +939,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      'Compare in primavera, quando pochi cercatori si aspettano funghi mortali. In Valtellina e rara, piu presente in pianura e bassa collina.',
+      'Compare in primavera, quando pochi cercatori si aspettano funghi mortali. In Valtellina e rara, più presente in pianura e bassa collina.',
     iNaturalistTaxonId: 350086,
     modelClassId: 17,
   },
@@ -1043,7 +1043,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      'Il fungo piu iconico al mondo, protagonista di fiabe, videogiochi (Super Mario) e tradizioni sciamaniche siberiane. In Valtellina abbonda nelle peccete. Le verruche bianche possono essere lavate via dalla pioggia, complicando l\'identificazione.',
+      'Il fungo più iconico al mondo, protagonista di fiabe, videogiochi (Super Mario) e tradizioni sciamaniche siberiane. In Valtellina abbonda nelle peccete. Le verruche bianche possono essere lavate via dalla pioggia, complicando l\'identificazione.',
     iNaturalistTaxonId: 48715,
     modelClassId: 19,
   },
@@ -1057,7 +1057,7 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Amanitaceae',
     edibility: 'tossico',
     edibilityNote:
-      "TOSSICO. Sindrome panterinica piu intensa dell'A. muscaria. Puo essere grave, soprattutto nei bambini. Sintomi entro 30 minuti: delirio, allucinazioni, convulsioni.",
+      "TOSSICO. Sindrome panterinica più intensa dell'A. muscaria. Può essere grave, soprattutto nei bambini. Sintomi entro 30 minuti: delirio, allucinazioni, convulsioni.",
     capDescription:
       'Cappello emisferico poi convesso e piano. Cuticola liscia, brunastra, con verruche bianche piccole e regolari. Margine nettamente striato.',
     capColor: ['bruno', 'bruno-grigiastro', 'bruno-olivastro', 'nocciola'],
@@ -1090,7 +1090,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      "Piu tossica dell'A. muscaria ma meno appariscente: il colore bruno la rende meno vistosa e quindi piu pericolosa. In Valtellina si trova sia in faggeta che in pecceta.",
+      "Più tossica dell'A. muscaria ma meno appariscente: il colore bruno la rende meno vistosa e quindi più pericolosa. In Valtellina si trova sia in faggeta che in pecceta.",
     iNaturalistTaxonId: 48686,
     modelClassId: 20,
   },
@@ -1104,7 +1104,7 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Cortinariaceae',
     edibility: 'mortale',
     edibilityNote:
-      'MORTALE. Contiene orellanina che distrugge i reni. I SINTOMI COMPAIONO DOPO 3-17 GIORNI (il piu lungo periodo di latenza tra i funghi). Quando compaiono, il danno renale e spesso irreversibile. Necessita dialisi a vita o trapianto.',
+      'MORTALE. Contiene orellanina che distrugge i reni. I SINTOMI COMPAIONO DOPO 3-17 GIORNI (il più lungo periodo di latenza tra i funghi). Quando compaiono, il danno renale e spesso irreversibile. Necessita dialisi a vita o trapianto.',
     capDescription:
       'Cappello conico-convesso poi piano, con umbone. Cuticola asciutta, finemente fibrillosa-squamulosa.',
     capColor: ['arancio-rossiccio', 'bruno-arancio', 'fulvo'],
@@ -1160,7 +1160,7 @@ export const SPECIES_DATABASE: Species[] = [
     stemDescription:
       'Robusto, bianco, fibroso, pieno, senza anello ne volva.',
     gillsDescription:
-      'Lamelle smarginate, inizialmente giallastre poi ROSA-SALMONE a maturita (per le spore rosa). Questa e la chiave identificativa.',
+      'Lamelle smarginate, inizialmente giallastre poi ROSA-SALMONE a maturità (per le spore rosa). Questa e la chiave identificativa.',
     fleshDescription:
       'Bianca, soda. Odore farinoso forte, sapore farinoso.',
     sporeColor: 'Rosa-salmone',
@@ -1177,11 +1177,11 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'clitocybe-nebularis',
         dangerLevel: 'medio',
         differences:
-          "La Clitocybe nebularis ha lamelle decorrenti biancastre (mai rosa) e odore forte. L'E. sinuatum ha lamelle rosa-salmone a maturita e portamento piu robusto.",
+          "La Clitocybe nebularis ha lamelle decorrenti biancastre (mai rosa) e odore forte. L'E. sinuatum ha lamelle rosa-salmone a maturità e portamento più robusto.",
       },
     ],
     funFact:
-      "E il fungo tossico che piu spesso viene confuso con specie commestibili. L'odore gradevole di farina fresca inganna. In Valtellina si trova nei boschi misti a bassa quota.",
+      "E il fungo tossico che più spesso viene confuso con specie commestibili. L'odore gradevole di farina fresca inganna. In Valtellina si trova nei boschi misti a bassa quota.",
     iNaturalistTaxonId: 346815,
     modelClassId: 22,
   },
@@ -1195,7 +1195,7 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Discinaceae',
     edibility: 'tossico',
     edibilityNote:
-      'TOSSICO, potenzialmente MORTALE. Contiene giromitrina, che si trasforma in monometilidrazina (componente del carburante per razzi). Puo causare insufficienza epatica e morte. Vendita VIETATA in Italia.',
+      'TOSSICO, potenzialmente MORTALE. Contiene giromitrina, che si trasforma in monometilidrazina (componente del carburante per razzi). Può causare insufficienza epatica e morte. Vendita VIETATA in Italia.',
     capDescription:
       'Corpo fruttifero con cappello irregolare, cerebroide (forma di cervello), con pieghe sinuose. NON cavo come la Morchella: contiene setti interni.',
     capColor: ['bruno-rossastro', 'bruno-castano', 'bruno scuro'],
@@ -1220,7 +1220,7 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'morchella-esculenta',
         dangerLevel: 'mortale',
         differences:
-          "La Morchella ha alveoli regolari (a nido d'ape) e corpo interamente cavo. La Gyromitra ha pieghe cerebrali irregolari e non e completamente cava (ha setti). Tagliare a meta per verificare.",
+          "La Morchella ha alveoli regolari (a nido d'ape) e corpo interamente cavo. La Gyromitra ha pieghe cerebrali irregolari e non e completamente cava (ha setti). Tagliare a metà per verificare.",
       },
     ],
     funFact:
@@ -1288,7 +1288,7 @@ export const SPECIES_DATABASE: Species[] = [
     edibilityNote:
       'TOSSICO. Causa grave sindrome gastrointestinale con possibili complicazioni epatiche. Sapore molto amaro — in teoria non si mangerebbe, ma nei misti si mimetizza.',
     capDescription:
-      'Cappello convesso poi piano, liscio. Colore giallo-zolfo con centro piu scuro.',
+      'Cappello convesso poi piano, liscio. Colore giallo-zolfo con centro più scuro.',
     capColor: ['giallo-zolfo', 'giallo-arancio', 'ocra al centro'],
     capDiameterCm: [2, 7],
     stemDescription:
@@ -1315,7 +1315,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      'Uno degli avvelenamenti piu comuni in Italia, perche viene raccolto assieme ai chiodini veri. Un consiglio: assaggiare sempre un pezzetto crudo (sputandolo) — il falso chiodino e disgustosamente amaro. In Valtellina abbonda sulle ceppaie.',
+      'Uno degli avvelenamenti più comuni in Italia, perché viene raccolto assieme ai chiodini veri. Un consiglio: assaggiare sempre un pezzetto crudo (sputandolo) — il falso chiodino e disgustosamente amaro. In Valtellina abbonda sulle ceppaie.',
     iNaturalistTaxonId: 54042,
     modelClassId: 25,
   },
@@ -1381,9 +1381,9 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Russulaceae',
     edibility: 'tossico',
     edibilityNote:
-      'TOSSICO da crudo. Causa vomito e diarrea. La cottura riduce la tossicita ma se ne sconsiglia comunque il consumo. Sapore estremamente piccante.',
+      'TOSSICO da crudo. Causa vomito e diarrea. La cottura riduce la tossicità ma se ne sconsiglia comunque il consumo. Sapore estremamente piccante.',
     capDescription:
-      'Cappello convesso poi piano-depresso. Cuticola viscida, lucida, facilmente pelabile. Margine striato a maturita.',
+      'Cappello convesso poi piano-depresso. Cuticola viscida, lucida, facilmente pelabile. Margine striato a maturità.',
     capColor: ['rosso vivo', 'rosso-ciliegia', 'rosso brillante'],
     capDiameterCm: [4, 10],
     stemDescription:
@@ -1424,7 +1424,7 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Tricholomataceae',
     edibility: 'tossico',
     edibilityNote:
-      "TOSSICO. Causa grave sindrome gastrointestinale molto intensa: vomito, diarrea, crampi violenti entro 2-4 ore. Uno dei piu comuni avvelenamenti in Italia.",
+      "TOSSICO. Causa grave sindrome gastrointestinale molto intensa: vomito, diarrea, crampi violenti entro 2-4 ore. Uno dei più comuni avvelenamenti in Italia.",
     capDescription:
       'Cappello convesso poi piano, grande, carnoso. Cuticola asciutta con squame concentriche grigio-brune su fondo chiaro (aspetto tigrato).',
     capColor: [
@@ -1453,11 +1453,11 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'tricholoma-terreum',
         dangerLevel: 'alto',
         differences:
-          'Il T. terreum e molto piu piccolo (4-10 cm), senza squame evidenti, e cresce esclusivamente sotto conifere. Il T. pardinum e grande, con squame tigrature evidenti e cresce sotto latifoglie e conifere su calcare.',
+          'Il T. terreum e molto più piccolo (4-10 cm), senza squame evidenti, e cresce esclusivamente sotto conifere. Il T. pardinum e grande, con squame tigrature evidenti e cresce sotto latifoglie e conifere su calcare.',
       },
     ],
     funFact:
-      "Confuso frequentemente con specie commestibili per il suo aspetto \"onesto\" e il sapore gradevole. In Valtellina si trova nelle faggete su suolo calcareo. Uno dei piu frequenti avvelenamenti dell'arco alpino.",
+      "Confuso frequentemente con specie commestibili per il suo aspetto \"onesto\" e il sapore gradevole. In Valtellina si trova nelle faggete su suolo calcareo. Uno dei più frequenti avvelenamenti dell'arco alpino.",
     iNaturalistTaxonId: 53714,
     modelClassId: 28,
   },
@@ -1530,7 +1530,7 @@ export const SPECIES_DATABASE: Species[] = [
     edibilityNote:
       'Commestibile dopo rimozione della cuticola viscida (lassativa). Nessuna confusione con specie tossiche. Ideale per principianti.',
     capDescription:
-      'Cappello convesso poi piano, molto viscido (glutinoso) con umidita. Cuticola facilmente asportabile.',
+      'Cappello convesso poi piano, molto viscido (glutinoso) con umidità. Cuticola facilmente asportabile.',
     capColor: ['bruno-cioccolato', 'castano', 'bruno-violaceo'],
     capDiameterCm: [4, 12],
     stemDescription:
@@ -1564,13 +1564,13 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Boletaceae',
     edibility: 'buono',
     edibilityNote:
-      'Buon commestibile, simile al porcino ma meno pregiato. Ottimo nei misti. La carne vira leggermente al blu: e normale e non indica tossicita.',
+      'Buon commestibile, simile al porcino ma meno pregiato. Ottimo nei misti. La carne vira leggermente al blu: e normale e non indica tossicità.',
     capDescription:
-      'Cappello convesso poi piano. Cuticola liscia, viscida con umidita, asciutta a secco. Color castagno uniforme.',
+      'Cappello convesso poi piano. Cuticola liscia, viscida con umidità, asciutta a secco. Color castagno uniforme.',
     capColor: ['castano', 'marrone-rossiccio', 'bruno-baia'],
     capDiameterCm: [4, 15],
     stemDescription:
-      'Cilindrico, slanciato, bruno chiaro con fibrille piu scure. Pieno, sodo.',
+      'Cilindrico, slanciato, bruno chiaro con fibrille più scure. Pieno, sodo.',
     gillsDescription:
       'Tubuli e pori giallo-verdastri, angolati, che virano al blu al tocco.',
     fleshDescription:
@@ -1598,7 +1598,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      "Il viraggio al blu e causato da una reazione chimica dell'acido boletolo con l'ossigeno. Non e indice di tossicita. In Valtellina e comunissimo nelle peccete montane.",
+      "Il viraggio al blu e causato da una reazione chimica dell'acido boletolo con l'ossigeno. Non e indice di tossicità. In Valtellina e comunissimo nelle peccete montane.",
     iNaturalistTaxonId: 48699,
     modelClassId: 31,
   },
@@ -1698,7 +1698,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      "La confusione con l'A. pantherina e uno degli errori piu pericolosi per i raccoglitori nelle Alpi. Regola d'oro: se l'Amanita bruna arrossisce, e la vinata; se resta bianca, e la pantherina tossica. In Valtellina e molto comune.",
+      "La confusione con l'A. pantherina e uno degli errori più pericolosi per i raccoglitori nelle Alpi. Regola d'oro: se l'Amanita bruna arrossisce, e la vinata; se resta bianca, e la pantherina tossica. In Valtellina e molto comune.",
     iNaturalistTaxonId: 48685,
     modelClassId: 33,
   },
@@ -1826,7 +1826,7 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'entoloma-sinuatum',
         dangerLevel: 'alto',
         differences:
-          "L'E. sinuatum compare piu tardi (estate-autunno), ha lamelle che diventano rosa-salmone e cresce nel bosco. Il prugnolo esce in primavera, ha lamelle bianche e cresce nei prati.",
+          "L'E. sinuatum compare più tardi (estate-autunno), ha lamelle che diventano rosa-salmone e cresce nel bosco. Il prugnolo esce in primavera, ha lamelle bianche e cresce nei prati.",
       },
     ],
     funFact:
@@ -1869,7 +1869,7 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'amanita-phalloides',
         dangerLevel: 'mortale',
         differences:
-          "ATTENZIONE: un giovane \"uovo\" di Amanita phalloides chiuso puo somigliare a una vescia! Tagliare SEMPRE a meta: la vescia e uniforme all'interno. L'uovo di Amanita mostra la sagoma del fungo (cappello, gambo) all'interno.",
+          "ATTENZIONE: un giovane \"uovo\" di Amanita phalloides chiuso può somigliare a una vescia! Tagliare SEMPRE a metà: la vescia e uniforme all'interno. L'uovo di Amanita mostra la sagoma del fungo (cappello, gambo) all'interno.",
       },
     ],
     funFact:
@@ -1941,7 +1941,7 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Tricholomataceae',
     edibility: 'commestibile',
     edibilityNote:
-      'Commestibile dopo cottura, ma controverso. Causa problemi gastrointestinali in persone sensibili. Raccogliere solo giovani. Non consumare in grandi quantita.',
+      'Commestibile dopo cottura, ma controverso. Causa problemi gastrointestinali in persone sensibili. Raccogliere solo giovani. Non consumare in grandi quantità.',
     capDescription:
       'Cappello convesso poi piano-depresso, ampio. Cuticola liscia, pruinosa (appannata come il vetro), grigio cenere.',
     capColor: ['grigio', 'grigio-cenere', 'grigio-brunastro'],
@@ -1966,7 +1966,7 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'entoloma-sinuatum',
         dangerLevel: 'medio',
         differences:
-          "L'E. sinuatum ha lamelle che virano al rosa-salmone e portamento piu compatto. Il cimballo ha lamelle sempre bianco-crema e odore forte caratteristico.",
+          "L'E. sinuatum ha lamelle che virano al rosa-salmone e portamento più compatto. Il cimballo ha lamelle sempre bianco-crema e odore forte caratteristico.",
       },
     ],
     funFact:
@@ -2010,7 +2010,7 @@ export const SPECIES_DATABASE: Species[] = [
     visibility: 'alta',
     confusableWith: [],
     funFact:
-      'Un singolo esemplare puo raggiungere i 50 cm di diametro e pesare diversi kg. Contiene circa 7 trilioni (7.000.000.000.000) di spore. Una fetta, impanata e fritta, e una delizia rustica in Valtellina.',
+      'Un singolo esemplare può raggiungere i 50 cm di diametro e pesare diversi kg. Contiene circa 7 trilioni (7.000.000.000.000) di spore. Una fetta, impanata e fritta, e una delizia rustica in Valtellina.',
     iNaturalistTaxonId: 48449,
     modelClassId: 40,
   },
@@ -2024,9 +2024,9 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Hymenogastraceae',
     edibility: 'mortale',
     edibilityNote:
-      "MORTALE. Contiene amatossine come l'Amanita phalloides. Anche un singolo cappello puo essere fatale. Cresce su legno in cespitini simili a chiodini. Confusione frequente e letale.",
+      "MORTALE. Contiene amatossine come l'Amanita phalloides. Anche un singolo cappello può essere fatale. Cresce su legno in cespitini simili a chiodini. Confusione frequente e letale.",
     capDescription:
-      'Cappello convesso poi piano, igrofano (cambia colore con umidita). Liscio, viscido con umidita, lucido a secco. Margine striato da umido.',
+      'Cappello convesso poi piano, igrofano (cambia colore con umidità). Liscio, viscido con umidità, lucido a secco. Margine striato da umido.',
     capColor: [
       'bruno-miele',
       'ocra',
@@ -2054,7 +2054,7 @@ export const SPECIES_DATABASE: Species[] = [
         speciesId: 'armillaria-mellea',
         dangerLevel: 'mortale',
         differences:
-          "I chiodini veri crescono in grossi cespi, hanno squame sul cappello, lamelle biancastre e anello robusto. La Galerina e piu piccola, bruno uniforme, con anello fragile e lamelle brune. Le lamelle brune sono il segnale d'allarme.",
+          "I chiodini veri crescono in grossi cespi, hanno squame sul cappello, lamelle biancastre e anello robusto. La Galerina e più piccola, bruno uniforme, con anello fragile e lamelle brune. Le lamelle brune sono il segnale d'allarme.",
       },
     ],
     funFact:
@@ -2130,7 +2130,7 @@ export const SPECIES_DATABASE: Species[] = [
     stemDescription:
       'Robusto, con reticolo SCURO (bruno) ben evidente (nel porcino vero il reticolo e chiaro). Pieno.',
     gillsDescription:
-      'Tubuli e pori bianchi da giovane, poi ROSA a maturita (carattere chiave). Nel porcino i pori sono giallo-verdastri, mai rosa.',
+      'Tubuli e pori bianchi da giovane, poi ROSA a maturità (carattere chiave). Nel porcino i pori sono giallo-verdastri, mai rosa.',
     fleshDescription:
       'Biancastra, immutabile, soda. Odore debole. Sapore ESTREMAMENTE AMARO (assaggiare un pezzetto e sputare).',
     sporeColor: 'Rosa-brunastro',
@@ -2165,7 +2165,7 @@ export const SPECIES_DATABASE: Species[] = [
     family: 'Hygrophoropsidaceae',
     edibility: 'non_commestibile',
     edibilityNote:
-      'Non tossico ma non commestibile: sapore sgradevole e consistenza gommosa. Puo causare lievi disturbi gastrici in soggetti sensibili.',
+      'Non tossico ma non commestibile: sapore sgradevole e consistenza gommosa. Può causare lievi disturbi gastrici in soggetti sensibili.',
     capDescription:
       'Cappello convesso poi imbutiforme, con margine involuto. Cuticola liscia, asciutta, vellutata.',
     capColor: ['arancione', 'arancione intenso', 'giallo-arancio'],
@@ -2199,7 +2199,7 @@ export const SPECIES_DATABASE: Species[] = [
       },
     ],
     funFact:
-      'La confusione tra gallinaccio vero e falso e tra le piu comuni ma fortunatamente non pericolosa. La chiave sta nelle lamelle: vere (sottili, fitte) nel falso, pseudolamelle (spesse, ramificate) nel vero. In Valtellina si trova nelle peccete.',
+      'La confusione tra gallinaccio vero e falso e tra le più comuni ma fortunatamente non pericolosa. La chiave sta nelle lamelle: vere (sottili, fitte) nel falso, pseudolamelle (spesse, ramificate) nel vero. In Valtellina si trova nelle peccete.',
     iNaturalistTaxonId: 54132,
     modelClassId: 44,
   },
@@ -2327,7 +2327,7 @@ export const SPECIES_DATABASE: Species[] = [
     visibility: 'alta',
     confusableWith: [],
     funFact:
-      'Sembra un grosso cavolfiore bianco ai piedi degli alberi. Un singolo esemplare puo pesare fino a 10 kg. In Valtellina e raro ma spettacolare, trovato alla base di grandi pini e larici.',
+      'Sembra un grosso cavolfiore bianco ai piedi degli alberi. Un singolo esemplare può pesare fino a 10 kg. In Valtellina e raro ma spettacolare, trovato alla base di grandi pini e larici.',
     iNaturalistTaxonId: 53760,
     modelClassId: 47,
   },

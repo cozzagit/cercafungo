@@ -2435,3 +2435,15 @@ export const MONTH_NAMES = [
   'Gennaio', 'Febbraio', 'Marzo', 'Aprile', 'Maggio', 'Giugno',
   'Luglio', 'Agosto', 'Settembre', 'Ottobre', 'Novembre', 'Dicembre',
 ];
+
+/**
+ * Split a differences string into readable bullet points.
+ * Tries sentence boundaries first (". " followed by uppercase), then returns as-is.
+ */
+export function splitDifferences(text: string): string[] {
+  const sentences = text
+    .split(/(?<=\.)\s+(?=[A-ZÀÈÌÒÙ])/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return sentences.length > 1 ? sentences : [text];
+}

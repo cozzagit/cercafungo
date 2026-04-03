@@ -25,6 +25,9 @@ interface MushroomMapProps {
   onMapClick?: (lat: number, lng: number) => void;
   /** If set, the map will pan+zoom to this finding */
   focusFinding?: MushroomFinding | null;
+  /** Callback to expose the Leaflet map instance to the parent */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onMapReady?: (map: any) => void;
 }
 
 // ── Tile URLs ──────────────────────────────────────────────────────
@@ -86,6 +89,7 @@ export default function MushroomMap({
   onMarkerClick,
   onMapClick,
   focusFinding,
+  onMapReady,
 }: MushroomMapProps) {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -136,6 +140,11 @@ export default function MushroomMap({
         zoomControl: false,
       });
       mapRef.current = map;
+
+      // Notify parent that map is ready
+      if (onMapReady) {
+        onMapReady(map);
+      }
 
       // Add tile layer
       const tileConfig = TILE_LAYERS[mapLayer];

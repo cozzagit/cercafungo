@@ -1,28 +1,13 @@
 import { DangerBadge } from './danger-badge';
 import { SeasonIndicator } from './season-indicator';
+import { LookalikeSection } from './lookalike-section';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import type { Species } from '@/lib/species-data';
-import { getSpeciesById, EDIBILITY_LABELS } from '@/lib/species-data';
 
 interface SpeciesDetailProps {
   species: Species;
 }
 
-function DangerLevelBadge({ level }: { level: string }) {
-  const config: Record<string, { bg: string; text: string; label: string }> = {
-    mortale: { bg: 'bg-red-100', text: 'text-red-800', label: 'MORTALE' },
-    alto: { bg: 'bg-orange-100', text: 'text-orange-800', label: 'Alto' },
-    medio: { bg: 'bg-yellow-100', text: 'text-yellow-800', label: 'Medio' },
-    basso: { bg: 'bg-blue-100', text: 'text-blue-800', label: 'Basso' },
-  };
-  const c = config[level] ?? config.basso;
-
-  return (
-    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold ${c.bg} ${c.text}`}>
-      {c.label}
-    </span>
-  );
-}
 
 export function SpeciesDetail({ species }: SpeciesDetailProps) {
   const isDangerous = species.edibility === 'tossico' || species.edibility === 'mortale';
@@ -161,51 +146,8 @@ export function SpeciesDetail({ species }: SpeciesDetailProps) {
             </Card>
           )}
 
-          {/* Lookalikes */}
-          {species.confusableWith.length > 0 && (
-            <Card className={isDangerous ? '' : 'border-orange-200'}>
-              <CardHeader>
-                <h2 className="text-xl font-bold text-bark-700 flex items-center gap-2">
-                  <span className="text-2xl">\u26A0\uFE0F</span>
-                  Specie simili — Attenzione!
-                </h2>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                {species.confusableWith.map((lookalike) => {
-                  const lookalikeSpecies = getSpeciesById(lookalike.speciesId);
-                  return (
-                    <div
-                      key={lookalike.speciesId}
-                      className={`
-                        p-4 rounded-xl border
-                        ${lookalike.dangerLevel === 'mortale'
-                          ? 'bg-red-50 border-red-200'
-                          : lookalike.dangerLevel === 'alto'
-                            ? 'bg-orange-50 border-orange-200'
-                            : 'bg-cream-100 border-cream-400'
-                        }
-                      `}
-                    >
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="font-bold text-bark-700">
-                          {lookalikeSpecies?.italianName ?? lookalike.speciesId}
-                        </span>
-                        {lookalikeSpecies && (
-                          <span className="text-sm text-bark-400 italic">
-                            ({lookalikeSpecies.scientificName})
-                          </span>
-                        )}
-                        <DangerLevelBadge level={lookalike.dangerLevel} />
-                      </div>
-                      <p className="text-sm text-bark-600 leading-relaxed">
-                        {lookalike.differences}
-                      </p>
-                    </div>
-                  );
-                })}
-              </CardContent>
-            </Card>
-          )}
+          {/* Lookalikes — full comparison panel */}
+          <LookalikeSection species={species} />
 
           {/* Fun fact */}
           <Card className="bg-forest-50 border-forest-200">

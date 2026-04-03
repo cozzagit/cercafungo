@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import type { Detection, ScannerMode } from '@/lib/yolo-inference';
 import { getScannerModeConfig } from '@/lib/yolo-inference';
@@ -13,6 +13,12 @@ import {
   stopCamera,
   type CameraCapabilities,
 } from '@/lib/camera-utils';
+import {
+  LookalikeComparison,
+  shouldShowLookalikes,
+} from '@/components/scanner/lookalike-comparison';
+import { SafetyBanner } from '@/components/scanner/safety-banner';
+import { SPECIES_DATABASE } from '@/lib/species-data';
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -56,6 +62,7 @@ export default function ScannerPage() {
   const [fps, setFps] = useState(0);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
+  const [showLookalikeOverlay, setShowLookalikeOverlay] = useState(false);
   const [demoMode, setDemoMode] = useState(false);
   const [scannerMode, setScannerModeState] = useState<ScannerMode>('standard');
 
@@ -359,6 +366,18 @@ export default function ScannerPage() {
     setSavedDetections((prev) => [saved, ...prev]);
     setShowBottomSheet(true);
 
+    // Auto-show lookalike panel if the detected species has dangerous lookalikes
+    const capturedSpecies = topDetection
+      ? SPECIES_DATABASE.find(
+          (s) =>
+            s.italianName.toLowerCase() === topDetection.label.toLowerCase() ||
+            s.id === topDetection.label.toLowerCase().replace(/\s+/g, '-')
+        )
+      : undefined;
+    if (capturedSpecies && shouldShowLookalikes(capturedSpecies, topDetection?.confidence)) {
+      setShowLookalikeOverlay(true);
+    }
+
     // Vibrate feedback
     if (navigator.vibrate) {
       navigator.vibrate(200);
@@ -367,10 +386,32 @@ export default function ScannerPage() {
 
   // ── Render helpers ───────────────────────────────────────────
 
-  const topDetection =
-    detections.length > 0
-      ? detections.reduce((best, d) => (d.confidence > best.confidence ? d : best))
-      : null;
+  const topDetection = useMemo(
+    () =>
+      detections.length > 0
+        ? detections.reduce((best, d) => (d.confidence > best.confidence ? d : best))
+        : null,
+    [detections],
+  );
+
+  // Resolve the top detection to a Species entry for lookalike lookup.
+  const topDetectionSpecies = useMemo(() => {
+    if (!topDetection) return null;
+    const label = topDetection.label.toLowerCase();
+    return (
+      SPECIES_DATABASE.find(
+        (s) =>
+          s.italianName.toLowerCase() === label ||
+          s.id === label.replace(/\s+/g, '-'),
+      ) ?? null
+    );
+  }, [topDetection]);
+
+  // Pre-compute whether lookalike panel should show (used in multiple render spots)
+  const showLookalikes = useMemo(
+    () => topDetectionSpecies ? shouldShowLookalikes(topDetectionSpecies, topDetection?.confidence) : false,
+    [topDetectionSpecies, topDetection],
+  );
 
   // ── Error / Permission states ────────────────────────────────
 
@@ -804,50 +845,187 @@ export default function ScannerPage() {
                 </div>
               ) : (
                 <div className="space-y-3">
-                  {savedDetections.map((det) => (
-                    <div
-                      key={det.id}
-                      className="flex items-center gap-3 bg-bark-700/60 rounded-xl p-3"
-                    >
-                      {/* Thumbnail */}
-                      {det.imageUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img
-                          src={det.imageUrl}
-                          alt="Cattura"
-                          className="w-14 h-14 rounded-lg object-cover flex-shrink-0"
-                        />
-                      ) : (
-                        <div className="w-14 h-14 rounded-lg bg-bark-600 flex items-center justify-center flex-shrink-0">
-                          <span>🍄</span>
-                        </div>
-                      )}
+                  {savedDetections.map((det) => {
+                    const detSpecies = SPECIES_DATABASE.find(
+                      (s) =>
+                        s.italianName.toLowerCase() === det.label.toLowerCase() ||
+                        s.id === det.label.toLowerCase().replace(/\s+/g, '-')
+                    );
+                    const hasLookalikeDanger =
+                      detSpecies && shouldShowLookalikes(detSpecies, det.confidence);
 
-                      {/* Info */}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-white font-medium text-sm truncate">{det.label}</p>
-                        <p className="text-bark-400 text-xs">
-                          {det.timestamp.toLocaleTimeString('it-IT')}
-                        </p>
+                    return (
+                      <div key={det.id} className="space-y-1.5">
+                        <div className="flex items-center gap-3 bg-bark-700/60 rounded-xl p-3">
+                          {/* Thumbnail */}
+                          {det.imageUrl ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={det.imageUrl}
+                              alt="Cattura"
+                              className="w-14 h-14 rounded-lg object-cover flex-shrink-0"
+                            />
+                          ) : (
+                            <div className="w-14 h-14 rounded-lg bg-bark-600 flex items-center justify-center flex-shrink-0">
+                              <span>🍄</span>
+                            </div>
+                          )}
+
+                          {/* Info */}
+                          <div className="flex-1 min-w-0">
+                            <p className="text-white font-medium text-sm truncate">{det.label}</p>
+                            <p className="text-bark-400 text-xs">
+                              {det.timestamp.toLocaleTimeString('it-IT')}
+                            </p>
+                          </div>
+
+                          {/* Confidence */}
+                          {det.confidence > 0 && (
+                            <div
+                              className="text-sm font-bold flex-shrink-0"
+                              style={{ color: getConfidenceColorHex(det.confidence) }}
+                            >
+                              {Math.round(det.confidence * 100)}%
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Lookalike warning button for this saved detection */}
+                        {hasLookalikeDanger && detSpecies && (
+                          <button
+                            onClick={() => {
+                              setShowBottomSheet(false);
+                              setShowLookalikeOverlay(true);
+                            }}
+                            className={`
+                              w-full flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold
+                              transition-colors
+                              ${detSpecies.edibility === 'mortale' || detSpecies.edibility === 'tossico'
+                                ? 'bg-red-600/20 border border-red-500/40 text-red-300 hover:bg-red-600/30'
+                                : 'bg-orange-500/20 border border-orange-400/40 text-orange-300 hover:bg-orange-500/30'
+                              }
+                            `}
+                          >
+                            <span>
+                              {detSpecies.edibility === 'mortale' ? '☠️' : '⚠️'}
+                            </span>
+                            <span>
+                              Sosia pericolosi — verifica sicurezza
+                            </span>
+                            <svg className="w-3.5 h-3.5 ml-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                            </svg>
+                          </button>
+                        )}
                       </div>
-
-                      {/* Confidence */}
-                      {det.confidence > 0 && (
-                        <div
-                          className="text-sm font-bold flex-shrink-0"
-                          style={{ color: getConfidenceColorHex(det.confidence) }}
-                        >
-                          {Math.round(det.confidence * 100)}%
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
           </div>
         </div>
       )}
+
+      {/* ── Lookalike comparison overlay ────────────────────────────
+          Shows after a capture when the detected species has dangerous lookalikes.
+          Rendered as a scrollable bottom-anchored panel on top of the camera feed.  */}
+      {showLookalikeOverlay && topDetectionSpecies && (
+        <div className="absolute inset-0 bg-black/70 flex items-end" style={{ zIndex: 45 }}>
+          <div
+            className="w-full bg-white rounded-t-3xl max-h-[85vh] overflow-y-auto animate-fade-in-up"
+            style={{ paddingBottom: 'max(env(safe-area-inset-bottom, 16px), 16px)' }}
+          >
+            {/* Header bar */}
+            <div className="flex items-center justify-between px-4 pt-4 pb-2 sticky top-0 bg-white border-b border-gray-100 z-10">
+              <div className="flex items-center gap-2">
+                <span className="text-xl">🔍</span>
+                <span className="font-bold text-bark-800 text-sm">Analisi sicurezza</span>
+              </div>
+              <button
+                onClick={() => setShowLookalikeOverlay(false)}
+                className="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition-colors"
+                aria-label="Chiudi"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="px-4 pt-3 pb-4 space-y-4">
+              {/* Detection summary */}
+              <div className="flex items-center gap-3 bg-gray-50 rounded-xl p-3">
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-lg"
+                  style={{ backgroundColor: getConfidenceColorHex(topDetection?.confidence ?? 0) + '22' }}
+                >
+                  🍄
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-bark-800 text-sm">{topDetectionSpecies.italianName}</p>
+                  <p className="text-xs text-bark-400 italic">{topDetectionSpecies.scientificName}</p>
+                </div>
+                {topDetection && (
+                  <div
+                    className="text-sm font-bold flex-shrink-0"
+                    style={{ color: getConfidenceColorHex(topDetection.confidence) }}
+                  >
+                    {Math.round(topDetection.confidence * 100)}%
+                  </div>
+                )}
+              </div>
+
+              {/* Safety banner */}
+              <SafetyBanner
+                variant={
+                  topDetectionSpecies.edibility === 'mortale' ||
+                  topDetectionSpecies.edibility === 'tossico'
+                    ? 'red'
+                    : 'amber'
+                }
+              />
+
+              {/* Lookalike comparison */}
+              <LookalikeComparison
+                detectedSpecies={topDetectionSpecies}
+                confidence={topDetection?.confidence}
+                onUnsure={() => setShowLookalikeOverlay(false)}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Lookalike warning badge — visible while scanning when high-danger species detected */}
+      {topDetectionSpecies &&
+        showLookalikes &&
+        !showLookalikeOverlay && (
+          <div className="absolute left-4 right-4 animate-fade-in-up" style={{ bottom: '120px', zIndex: 25 }}>
+            <button
+              onClick={() => setShowLookalikeOverlay(true)}
+              className={`
+                w-full flex items-center gap-3 rounded-2xl px-4 py-3 border text-left transition-all active:scale-98
+                ${topDetectionSpecies.edibility === 'mortale' || topDetectionSpecies.edibility === 'tossico'
+                  ? 'bg-red-600/95 border-red-400 text-white'
+                  : 'bg-orange-500/95 border-orange-400 text-white'
+                }
+              `}
+            >
+              <span className="text-xl flex-shrink-0">
+                {topDetectionSpecies.edibility === 'mortale' ? '☠️' : '⚠️'}
+              </span>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-sm">Sosia pericolosi rilevati</p>
+                <p className="text-xs opacity-85 mt-0.5">
+                  {topDetectionSpecies.confusableWith.length} specie simili con pericolo —{' '}
+                  tocca per verificare
+                </p>
+              </div>
+              <svg className="w-5 h-5 flex-shrink-0 opacity-80" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        )}
 
       {/* Loading overlay */}
       {state === 'loading' && (

@@ -7,6 +7,7 @@
  * - OpenStreetMap / Terrain / Satellite tile layers
  * - Marker clustering + custom mushroom icons
  * - Heatmap overlay for "zone floride"
+ * - Zone Floride Intelligenti (smart foraging zone circles)
  * - Add finding modal with GPS auto-detect
  * - Filter by species, season, date range
  * - Finding detail bottom sheet
@@ -17,8 +18,11 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
+import { ActiveSessionBar } from '@/components/diary/active-session-bar';
 import AddFindingModal from '@/components/map/add-finding-modal';
 import FindingDetail from '@/components/map/finding-detail';
+import ZoneOverlay from '@/components/map/zone-overlay';
+import ZoneDetailSheet from '@/components/map/zone-detail-sheet';
 
 import {
   deleteFinding,
@@ -31,6 +35,8 @@ import {
   type NewFinding,
   type Season,
 } from '@/lib/findings-store';
+import type { ForagingZone } from '@/lib/zone-engine';
+import { deleteZone, getZones, redetectZones, updateZone } from '@/lib/zone-store';
 import type { MapLayer } from '@/components/map/mushroom-map';
 
 // ── Dynamic import — Leaflet is SSR-incompatible ───────────────────
@@ -74,6 +80,13 @@ export default function MappaPage() {
   const [heatmapData, setHeatmapData] = useState<HeatmapPoint[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Zone state
+  const [zones, setZones] = useState<ForagingZone[]>([]);
+  const [showZones, setShowZones] = useState(false);
+  const [selectedZone, setSelectedZone] = useState<ForagingZone | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [mapInstance, setMapInstance] = useState<any>(null);
+
   // UI
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedFinding, setSelectedFinding] = useState<MushroomFinding | null>(null);
@@ -104,6 +117,7 @@ export default function MappaPage() {
     const all = getFindings();
     setFindings(all);
     setHeatmapData(getHeatmapData());
+    setZones(getZones());
   }, []);
 
   useEffect(() => {
@@ -118,9 +132,18 @@ export default function MappaPage() {
       if (f) setSelectedFinding(f);
     };
 
+    // Expose global callback for zone popup button
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (window as any).__cfOpenZone = (id: string) => {
+      const z = getZones().find((x) => x.id === id);
+      if (z) setSelectedZone(z);
+    };
+
     return () => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       delete (window as any).__cfOpenFinding;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      delete (window as any).__cfOpenZone;
     };
   }, [reload]);
 
@@ -171,6 +194,9 @@ export default function MappaPage() {
       saveFinding(data);
       reload();
       setPendingCoords(null);
+      // Re-detect zones after new finding
+      const fresh = redetectZones();
+      setZones(fresh);
     },
     [reload]
   );
@@ -202,6 +228,23 @@ export default function MappaPage() {
     setFilterDateFrom('');
     setFilterDateTo('');
   };
+
+  const handleUpdateZone = useCallback(
+    (id: string, updates: Partial<ForagingZone>) => {
+      updateZone(id, updates);
+      setZones(getZones());
+      setSelectedZone((prev) =>
+        prev?.id === id ? { ...prev, ...updates } : prev
+      );
+    },
+    []
+  );
+
+  const handleDeleteZone = useCallback((id: string) => {
+    deleteZone(id);
+    setSelectedZone(null);
+    setZones(getZones());
+  }, []);
 
   // ── Stats quick summary ───────────────────────────────────────────
 
@@ -242,10 +285,31 @@ export default function MappaPage() {
           </div>
 
           <div className="flex items-center gap-2">
+            {/* Zone Floride Intelligenti toggle */}
+            <button
+              onClick={() => setShowZones((v) => !v)}
+              title={showZones ? 'Nascondi zone' : 'Mostra Zone Floride'}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
+                showZones
+                  ? 'bg-amber-500/20 border border-amber-500/50 text-amber-300'
+                  : 'bg-forest-800/80 border border-forest-700/50 text-forest-300 hover:text-white'
+              }`}
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />
+              </svg>
+              <span className="hidden sm:block">Zone</span>
+              {zones.length > 0 && (
+                <span className="bg-amber-400 text-amber-900 text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                  {zones.length}
+                </span>
+              )}
+            </button>
+
             {/* Heatmap toggle */}
             <button
               onClick={() => setShowHeatmap((v) => !v)}
-              title={showHeatmap ? 'Nascondi heatmap' : 'Mostra zone floride'}
+              title={showHeatmap ? 'Nascondi heatmap' : 'Mostra heatmap'}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-1.5 ${
                 showHeatmap
                   ? 'bg-amber-500/20 border border-amber-500/50 text-amber-300'
@@ -256,7 +320,7 @@ export default function MappaPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 18a3.75 3.75 0 00.495-7.468 5.99 5.99 0 00-1.925 3.547 5.975 5.975 0 01-2.133-1.001A3.75 3.75 0 0012 18z" />
               </svg>
-              <span className="hidden sm:block">Zone Floride</span>
+              <span className="hidden sm:block">Calore</span>
             </button>
 
             {/* Layer picker */}
@@ -334,6 +398,12 @@ export default function MappaPage() {
             </button>
 
             {/* Nav links */}
+            <Link
+              href="/zone"
+              className="text-xs text-forest-300 hover:text-white transition-colors font-medium hidden md:block"
+            >
+              Zone
+            </Link>
             <Link
               href="/guida"
               className="text-xs text-forest-300 hover:text-white transition-colors font-medium hidden md:block"
@@ -457,6 +527,17 @@ export default function MappaPage() {
             onMarkerClick={setSelectedFinding}
             onMapClick={handleMapClick}
             focusFinding={focusFinding}
+            onMapReady={setMapInstance}
+          />
+        )}
+
+        {/* Zone circles overlay */}
+        {isLoaded && mapInstance && (
+          <ZoneOverlay
+            mapInstance={mapInstance}
+            zones={zones}
+            visible={showZones}
+            onZoneClick={setSelectedZone}
           />
         )}
 
@@ -468,10 +549,39 @@ export default function MappaPage() {
           <p className="text-lg font-bold text-white leading-tight">{filteredFindings.length}</p>
         </div>
 
+        {/* Zone legend */}
+        {showZones && zones.length > 0 && (
+          <div className="absolute top-3 right-3 z-[400] bg-forest-900/90 backdrop-blur-sm border border-forest-700/60 rounded-xl px-3 py-2.5">
+            <p className="text-[10px] text-forest-400 font-semibold uppercase tracking-wide mb-2">Zone Floride</p>
+            <div className="space-y-1">
+              {[
+                { color: '#FFD700', label: 'Eccellente (75-100)' },
+                { color: '#F39C12', label: 'Buona (50-75)' },
+                { color: '#27AE60', label: 'Discreta (25-50)' },
+                { color: '#95A5A6', label: 'Scarsa (0-25)' },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center gap-1.5">
+                  <span
+                    className="w-3 h-3 rounded-full flex-shrink-0 border border-white/20"
+                    style={{ background: item.color }}
+                  />
+                  <span className="text-[10px] text-forest-300">{item.label}</span>
+                </div>
+              ))}
+            </div>
+            <Link
+              href="/zone"
+              className="mt-2 text-[10px] text-amber-400 hover:text-amber-300 font-semibold flex items-center gap-1 transition-colors"
+            >
+              Lista zone →
+            </Link>
+          </div>
+        )}
+
         {/* Heatmap legend */}
-        {showHeatmap && (
+        {showHeatmap && !showZones && (
           <div className="absolute top-3 right-3 z-[400] bg-forest-900/90 backdrop-blur-sm border border-forest-700/60 rounded-xl px-3 py-2">
-            <p className="text-[10px] text-forest-400 font-semibold uppercase tracking-wide mb-1.5">Zone Floride</p>
+            <p className="text-[10px] text-forest-400 font-semibold uppercase tracking-wide mb-1.5">Intensità</p>
             <div className="flex items-center gap-2">
               <div className="h-2 w-20 rounded-full" style={{
                 background: 'linear-gradient(to right, #27ae60, #c68b3e, #c0392b)'
@@ -550,6 +660,13 @@ export default function MappaPage() {
         onFocusOnMap={handleFocusOnMap}
       />
 
+      <ZoneDetailSheet
+        zone={selectedZone}
+        onClose={() => setSelectedZone(null)}
+        onUpdate={handleUpdateZone}
+        onDelete={handleDeleteZone}
+      />
+
       {/* ── Leaflet CSS overrides ──────────────────────────────── */}
       <style>{`
         .leaflet-container {
@@ -610,6 +727,9 @@ export default function MappaPage() {
           border: none !important;
         }
       `}</style>
+
+      {/* Active session bar — fixed bottom, shows when a foraging session is running */}
+      <ActiveSessionBar />
     </div>
   );
 }
