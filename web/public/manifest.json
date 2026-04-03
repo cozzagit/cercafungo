@@ -2,7 +2,7 @@
   "name": "CercaFungo — Assistente AI Funghi",
   "short_name": "CercaFungo",
   "description": "Identifica i funghi con l'intelligenza artificiale. Scanner AI, guida 48 specie, mappa ritrovamenti. Alpi italiane.",
-  "start_url": "/",
+  "start_url": "/scanner",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#fdfcf9",

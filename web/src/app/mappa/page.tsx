@@ -595,7 +595,7 @@ export default function MappaPage() {
         )}
 
         {/* Click-to-add hint */}
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-[400] bg-forest-900/80 backdrop-blur-sm border border-forest-700/50 rounded-full px-4 py-1.5 pointer-events-none">
+        <div className="absolute bottom-36 left-1/2 -translate-x-1/2 z-[400] bg-forest-900/80 backdrop-blur-sm border border-forest-700/50 rounded-full px-4 py-1.5 pointer-events-none">
           <p className="text-[11px] text-forest-300 font-medium">
             Tocca la mappa per aggiungere un ritrovamento
           </p>
@@ -607,7 +607,7 @@ export default function MappaPage() {
             setPendingCoords(null);
             setShowAddModal(true);
           }}
-          className="absolute bottom-6 right-4 z-[400] w-14 h-14 bg-amber-500 hover:bg-amber-600 active:scale-95 text-white rounded-2xl shadow-xl shadow-amber-500/30 flex items-center justify-center transition-all"
+          className="absolute bottom-20 right-4 z-[400] w-14 h-14 bg-amber-500 hover:bg-amber-600 active:scale-95 text-white rounded-2xl shadow-xl shadow-amber-500/30 flex items-center justify-center transition-all"
           title="Aggiungi ritrovamento"
         >
           <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -718,6 +718,7 @@ export default function MappaPage() {
           background: rgba(17, 32, 8, 0.7) !important;
           color: rgba(184, 209, 169, 0.6) !important;
           font-size: 9px !important;
+          margin-bottom: 64px !important;
         }
         .leaflet-control-attribution a {
           color: rgba(184, 209, 169, 0.8) !important;
