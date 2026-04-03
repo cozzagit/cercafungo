@@ -5,8 +5,20 @@ import { LookalikeSection } from './lookalike-section';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import type { Species } from '@/lib/species-data';
 
-/** Map species ID (with dashes) to the inaturalist folder name (with underscores) */
-function getSpeciesImagePath(species: Species): string {
+/** Species with verified photos (manually checked, confirmed correct) */
+const SPECIES_WITH_PHOTOS = new Set([
+  'amanita-muscaria',
+  'amanita-phalloides',
+  'boletus-edulis',
+  'galerina-marginata',
+  'lactarius-deliciosus',
+  'lactarius-torminosus',
+  'suillus-luteus',
+  'tylopilus-felleus',
+]);
+
+function getSpeciesImagePath(species: Species): string | null {
+  if (!SPECIES_WITH_PHOTOS.has(species.id)) return null;
   const folder = species.id.replace(/-/g, '_');
   return `/species/${folder}.jpg`;
 }
@@ -89,20 +101,22 @@ export function SpeciesDetail({ species }: SpeciesDetailProps) {
           </p>
         )}
 
-        {/* Species photo */}
-        <div className="mt-5 rounded-2xl overflow-hidden border border-cream-300 shadow-sm bg-cream-100">
-          <Image
-            src={getSpeciesImagePath(species)}
-            alt={`${species.italianName} (${species.scientificName})`}
-            width={600}
-            height={400}
-            className="w-full h-auto object-cover max-h-[350px]"
-            unoptimized
-          />
-          <p className="text-[10px] text-bark-400 px-3 py-1.5 bg-cream-50">
-            Foto di riferimento — l&apos;aspetto può variare in base a età, umidità e habitat
-          </p>
-        </div>
+        {/* Species photo (only shown for verified species) */}
+        {getSpeciesImagePath(species) && (
+          <div className="mt-5 rounded-2xl overflow-hidden border border-cream-300 shadow-sm bg-cream-100">
+            <Image
+              src={getSpeciesImagePath(species)!}
+              alt={`${species.italianName} (${species.scientificName})`}
+              width={600}
+              height={400}
+              className="w-full h-auto object-cover max-h-[350px]"
+              unoptimized
+            />
+            <p className="text-[10px] text-bark-400 px-3 py-1.5 bg-cream-50">
+              Foto di riferimento — l&apos;aspetto può variare in base a età, umidità e habitat
+            </p>
+          </div>
+        )}
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
