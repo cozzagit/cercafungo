@@ -5,20 +5,8 @@ import { LookalikeSection } from './lookalike-section';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import type { Species } from '@/lib/species-data';
 
-/** Species with verified photos (manually checked, confirmed correct) */
-const SPECIES_WITH_PHOTOS = new Set([
-  'amanita-muscaria',
-  'amanita-phalloides',
-  'boletus-edulis',
-  'galerina-marginata',
-  'lactarius-deliciosus',
-  'lactarius-torminosus',
-  'suillus-luteus',
-  'tylopilus-felleus',
-]);
-
 function getSpeciesImagePath(species: Species): string | null {
-  if (!SPECIES_WITH_PHOTOS.has(species.id)) return null;
+  if (species.id === 'sconosciuto') return null;
   const folder = species.id.replace(/-/g, '_');
   return `/species/${folder}.jpg`;
 }
