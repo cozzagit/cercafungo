@@ -109,7 +109,7 @@ species:
   - id: "boletus_aereus"
     latin: "Boletus aereus"
     italian: "Porcino nero"
-    taxon_id: 116856
+    taxon_id: 333772
     edible: true
     toxic: false
     deadly: false
@@ -120,7 +120,7 @@ species:
   - id: "boletus_pinophilus"
     latin: "Boletus pinophilus"
     italian: "Porcino dei pini"
-    taxon_id: 326763
+    taxon_id: 335942
     edible: true
     toxic: false
     deadly: false
@@ -131,7 +131,7 @@ species:
   - id: "boletus_reticulatus"
     latin: "Boletus reticulatus"
     italian: "Porcino estivo"
-    taxon_id: 326762
+    taxon_id: 350216
     edible: true
     toxic: false
     deadly: false
@@ -142,7 +142,7 @@ species:
   - id: "cantharellus_cibarius"
     latin: "Cantharellus cibarius"
     italian: "Gallinaccio"
-    taxon_id: 48230
+    taxon_id: 47347
     edible: true
     toxic: false
     deadly: false
@@ -153,7 +153,7 @@ species:
   - id: "amanita_caesarea"
     latin: "Amanita caesarea"
     italian: "Ovolo buono"
-    taxon_id: 48683
+    taxon_id: 204588
     edible: true
     toxic: false
     deadly: false
@@ -164,7 +164,7 @@ species:
   - id: "craterellus_cornucopioides"
     latin: "Craterellus cornucopioides"
     italian: "Trombetta dei morti"
-    taxon_id: 48229
+    taxon_id: 48607
     edible: true
     toxic: false
     deadly: false
@@ -175,7 +175,7 @@ species:
   - id: "hydnum_repandum"
     latin: "Hydnum repandum"
     italian: "Steccherino dorato"
-    taxon_id: 47453
+    taxon_id: 48641
     edible: true
     toxic: false
     deadly: false
@@ -186,7 +186,7 @@ species:
   - id: "macrolepiota_procera"
     latin: "Macrolepiota procera"
     italian: "Mazza di tamburo"
-    taxon_id: 48178
+    taxon_id: 63401
     edible: true
     toxic: false
     deadly: false
@@ -197,7 +197,7 @@ species:
   - id: "armillaria_mellea"
     latin: "Armillaria mellea"
     italian: "Chiodino"
-    taxon_id: 48206
+    taxon_id: 55950
     edible: true
     toxic: false
     deadly: false
@@ -208,7 +208,7 @@ species:
   - id: "lactarius_deliciosus"
     latin: "Lactarius deliciosus"
     italian: "Sanguinello"
-    taxon_id: 48425
+    taxon_id: 155197
     edible: true
     toxic: false
     deadly: false
@@ -219,7 +219,7 @@ species:
   - id: "morchella_esculenta"
     latin: "Morchella esculenta"
     italian: "Spugnola"
-    taxon_id: 48577
+    taxon_id: 58682
     edible: true
     toxic: false
     deadly: false
@@ -230,7 +230,7 @@ species:
   - id: "tricholoma_terreum"
     latin: "Tricholoma terreum"
     italian: "Moretta"
-    taxon_id: 53720
+    taxon_id: 341797
     edible: true
     toxic: false
     deadly: false
@@ -241,7 +241,7 @@ species:
   - id: "russula_cyanoxantha"
     latin: "Russula cyanoxantha"
     italian: "Colombina maggiore"
-    taxon_id: 48344
+    taxon_id: 194437
     edible: true
     toxic: false
     deadly: false
@@ -252,7 +252,7 @@ species:
   - id: "pleurotus_ostreatus"
     latin: "Pleurotus ostreatus"
     italian: "Orecchione"
-    taxon_id: 48210
+    taxon_id: 48494
     edible: true
     toxic: false
     deadly: false
@@ -278,7 +278,7 @@ species:
   - id: "amanita_verna"
     latin: "Amanita verna"
     italian: "Tignosa primaverile (MORTALE)"
-    taxon_id: 350086
+    taxon_id: 58684
     edible: false
     toxic: true
     deadly: true
@@ -289,7 +289,7 @@ species:
   - id: "amanita_virosa"
     latin: "Amanita virosa"
     italian: "Tignosa bianca (MORTALE)"
-    taxon_id: 48688
+    taxon_id: 58685
     edible: false
     toxic: true
     deadly: true
@@ -311,7 +311,7 @@ species:
   - id: "amanita_pantherina"
     latin: "Amanita pantherina"
     italian: "Tignosa bruna (TOSSICO)"
-    taxon_id: 48686
+    taxon_id: 48418
     edible: false
     toxic: true
     deadly: false
@@ -322,7 +322,7 @@ species:
   - id: "cortinarius_orellanus"
     latin: "Cortinarius orellanus"
     italian: "Cortinario orellano (MORTALE)"
-    taxon_id: 48576
+    taxon_id: 337849
     edible: false
     toxic: true
     deadly: true
@@ -333,7 +333,7 @@ species:
   - id: "entoloma_sinuatum"
     latin: "Entoloma sinuatum"
     italian: "Entoloma livido (TOSSICO)"
-    taxon_id: 346815
+    taxon_id: 510199
     edible: false
     toxic: true
     deadly: false
@@ -344,7 +344,7 @@ species:
   - id: "gyromitra_esculenta"
     latin: "Gyromitra esculenta"
     italian: "Falsa spugnola (TOSSICO)"
-    taxon_id: 48580
+    taxon_id: 85120
     edible: false
     toxic: true
     deadly: false
@@ -355,7 +355,7 @@ species:
   - id: "omphalotus_olearius"
     latin: "Omphalotus olearius"
     italian: "Fungo dell'olivo (TOSSICO)"
-    taxon_id: 146720
+    taxon_id: 64021
     edible: false
     toxic: true
     deadly: false
@@ -366,7 +366,7 @@ species:
   - id: "hypholoma_fasciculare"
     latin: "Hypholoma fasciculare"
     italian: "Falso chiodino (TOSSICO)"
-    taxon_id: 54042
+    taxon_id: 48767
     edible: false
     toxic: true
     deadly: false
@@ -377,7 +377,7 @@ species:
   - id: "boletus_satanas"
     latin: "Rubroboletus satanas"
     italian: "Porcino malefico (TOSSICO)"
-    taxon_id: 352451
+    taxon_id: 544554
     edible: false
     toxic: true
     deadly: false
@@ -388,7 +388,7 @@ species:
   - id: "russula_emetica"
     latin: "Russula emetica"
     italian: "Colombina rossa (TOSSICO)"
-    taxon_id: 48352
+    taxon_id: 49449
     edible: false
     toxic: true
     deadly: false
@@ -399,7 +399,7 @@ species:
   - id: "tricholoma_pardinum"
     latin: "Tricholoma pardinum"
     italian: "Agarico tigrino (TOSSICO)"
-    taxon_id: 53714
+    taxon_id: 335206
     edible: false
     toxic: true
     deadly: false
@@ -414,7 +414,7 @@ species:
   - id: "agaricus_campestris"
     latin: "Agaricus campestris"
     italian: "Prataiolo"
-    taxon_id: 57775
+    taxon_id: 143563
     edible: true
     toxic: false
     deadly: false
@@ -425,7 +425,7 @@ species:
   - id: "suillus_luteus"
     latin: "Suillus luteus"
     italian: "Pinarolo"
-    taxon_id: 48704
+    taxon_id: 53488
     edible: true
     toxic: false
     deadly: false
@@ -436,7 +436,7 @@ species:
   - id: "xerocomus_badius"
     latin: "Imleria badia"
     italian: "Boleto baio"
-    taxon_id: 48699
+    taxon_id: 510854
     edible: true
     toxic: false
     deadly: false
@@ -447,7 +447,7 @@ species:
   - id: "coprinus_comatus"
     latin: "Coprinus comatus"
     italian: "Coprino chiomato"
-    taxon_id: 48441
+    taxon_id: 47392
     edible: true
     toxic: false
     deadly: false
@@ -458,7 +458,7 @@ species:
   - id: "amanita_rubescens"
     latin: "Amanita rubescens"
     italian: "Tignosa vinata"
-    taxon_id: 48685
+    taxon_id: 67661
     edible: true
     toxic: false
     deadly: false
@@ -469,7 +469,7 @@ species:
   - id: "leccinum_scabrum"
     latin: "Leccinum scabrum"
     italian: "Porcinello grigio"
-    taxon_id: 48707
+    taxon_id: 63232
     edible: true
     toxic: false
     deadly: false
@@ -480,7 +480,7 @@ species:
   - id: "leccinum_aurantiacum"
     latin: "Leccinum aurantiacum"
     italian: "Porcinello rosso"
-    taxon_id: 118839
+    taxon_id: 124085
     edible: true
     toxic: false
     deadly: false
@@ -491,7 +491,7 @@ species:
   - id: "calocybe_gambosa"
     latin: "Calocybe gambosa"
     italian: "Prugnolo"
-    taxon_id: 55721
+    taxon_id: 450829
     edible: true
     toxic: false
     deadly: false
@@ -502,7 +502,7 @@ species:
   - id: "lycoperdon_perlatum"
     latin: "Lycoperdon perlatum"
     italian: "Vescia gemmata"
-    taxon_id: 48448
+    taxon_id: 48443
     edible: true
     toxic: false
     deadly: false
@@ -513,7 +513,7 @@ species:
   - id: "lepista_nuda"
     latin: "Lepista nuda"
     italian: "Agarico violetto"
-    taxon_id: 62637
+    taxon_id: 351380
     edible: true
     toxic: false
     deadly: false
@@ -524,7 +524,7 @@ species:
   - id: "clitocybe_nebularis"
     latin: "Clitocybe nebularis"
     italian: "Cimballo"
-    taxon_id: 54269  # Corretto: Clitocybe nebularis in iNaturalist
+    taxon_id: 63255
     edible: true
     toxic: false
     deadly: false
@@ -535,7 +535,7 @@ species:
   - id: "calvatia_gigantea"
     latin: "Calvatia gigantea"
     italian: "Vescia gigante"
-    taxon_id: 48449
+    taxon_id: 57692
     edible: true
     toxic: false
     deadly: false
@@ -550,7 +550,7 @@ species:
   - id: "galerina_marginata"
     latin: "Galerina marginata"
     italian: "Galerina marginata (MORTALE)"
-    taxon_id: 55931
+    taxon_id: 154735
     edible: false
     toxic: true
     deadly: true
@@ -565,7 +565,7 @@ species:
   - id: "lactarius_torminosus"
     latin: "Lactarius torminosus"
     italian: "Lattario torminoso (TOSSICO)"
-    taxon_id: 48421
+    taxon_id: 351313
     edible: false
     toxic: true
     deadly: false
@@ -576,7 +576,7 @@ species:
   - id: "tylopilus_felleus"
     latin: "Tylopilus felleus"
     italian: "Porcino amaro"
-    taxon_id: 48702
+    taxon_id: 63489
     edible: false
     toxic: false
     deadly: false
@@ -587,7 +587,7 @@ species:
   - id: "hygrophoropsis_aurantiaca"
     latin: "Hygrophoropsis aurantiaca"
     italian: "Falso gallinaccio"
-    taxon_id: 54132
+    taxon_id: 63538
     edible: false
     toxic: false
     deadly: false
@@ -598,7 +598,7 @@ species:
   - id: "chlorophyllum_rhacodes"
     latin: "Chlorophyllum rhacodes"
     italian: "Mazza di tamburo arrossante"
-    taxon_id: 348192
+    taxon_id: 56535
     edible: true
     toxic: false
     deadly: false
@@ -609,7 +609,7 @@ species:
   - id: "cantharellus_tubaeformis"
     latin: "Craterellus tubaeformis"
     italian: "Finferla"
-    taxon_id: 48231
+    taxon_id: 350511
     edible: true
     toxic: false
     deadly: false
@@ -620,7 +620,7 @@ species:
   - id: "sparassis_crispa"
     latin: "Sparassis crispa"
     italian: "Sparasside crespa"
-    taxon_id: 53760
+    taxon_id: 63014
     edible: true
     toxic: false
     deadly: false
@@ -631,7 +631,7 @@ species:
   - id: "gomphus_clavatus"
     latin: "Gomphus clavatus"
     italian: "Cantarello viola"
-    taxon_id: 54575
+    taxon_id: 54121
     edible: true
     toxic: false
     deadly: false
