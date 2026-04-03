@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import { BottomNav } from "@/components/ui/bottom-nav";
 import { InstallPrompt } from "@/components/pwa/install-prompt";
 import { ServiceWorkerRegister } from "@/components/pwa/sw-register";
 import "./globals.css";
@@ -78,8 +79,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="it" className={`${inter.variable} ${playfair.variable}`} style={{ scrollBehavior: 'smooth' }}>
-      <body className="min-h-screen antialiased">
+      <body className="min-h-screen antialiased pb-16">
         {children}
+        <BottomNav />
         <ServiceWorkerRegister />
         <InstallPrompt />
       </body>
