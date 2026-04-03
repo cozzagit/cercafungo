@@ -62,7 +62,10 @@ export default function ScannerPage() {
   const [savedDetections, setSavedDetections] = useState<SavedDetection[]>([]);
   const [fps, setFps] = useState(0);
   const [showBottomSheet, setShowBottomSheet] = useState(false);
-  const [showDisclaimer, setShowDisclaimer] = useState(true);
+  const [showDisclaimer, setShowDisclaimer] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    return localStorage.getItem('cercafungo_disclaimer_accepted') !== 'true';
+  });
   const [showLookalikeOverlay, setShowLookalikeOverlay] = useState(false);
   const [demoMode, setDemoMode] = useState(false);
   const [scannerMode, setScannerModeState] = useState<ScannerMode>('standard');
@@ -808,7 +811,7 @@ export default function ScannerPage() {
 
       {/* Safety disclaimer overlay */}
       {showDisclaimer && (
-        <div className="absolute inset-0 z-50 bg-black/80 flex items-end justify-center p-4 pb-[env(safe-area-inset-bottom,16px)]">
+        <div className="absolute inset-0 z-50 bg-black/80 flex items-end justify-center p-4 pb-20">
           <div className="bg-bark-800 border border-amber-500/30 rounded-2xl p-6 max-w-lg w-full animate-fade-in-up">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-3xl">⚠️</span>
@@ -832,7 +835,10 @@ export default function ScannerPage() {
               </p>
             </div>
             <button
-              onClick={() => setShowDisclaimer(false)}
+              onClick={() => {
+                localStorage.setItem('cercafungo_disclaimer_accepted', 'true');
+                setShowDisclaimer(false);
+              }}
               className="mt-5 w-full bg-forest-600 hover:bg-forest-700 text-white py-3 rounded-xl font-semibold transition-colors"
             >
               Ho capito, procedi
