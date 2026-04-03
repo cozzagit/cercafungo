@@ -20,6 +20,7 @@ import {
 import { SafetyBanner } from '@/components/scanner/safety-banner';
 import { SPECIES_DATABASE } from '@/lib/species-data';
 import { saveScan, createThumbnail } from '@/lib/scan-store';
+import type { ClassificationResult } from '@/lib/classifier-inference';
 
 // ── Types ──────────────────────────────────────────────────────
 
@@ -57,7 +58,9 @@ export default function ScannerPage() {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [modelLoaded, setModelLoaded] = useState(false);
   const [modelLoading, setModelLoading] = useState(false);
+  const [classifierReady, setClassifierReady] = useState(false);
   const [detections, setDetections] = useState<Detection[]>([]);
+  const [classification, setClassification] = useState<ClassificationResult | null>(null);
   const [totalDetections, setTotalDetections] = useState(0);
   const [savedDetections, setSavedDetections] = useState<SavedDetection[]>([]);
   const [fps, setFps] = useState(0);
@@ -118,7 +121,21 @@ export default function ScannerPage() {
       setDemoMode(!success);
 
       if (!success) {
-        console.warn('[Scanner] Model not found at /models/mushroom-detector.onnx — demo mode');
+        console.warn('[Scanner] Detector not found — demo mode');
+      }
+
+      // Load classifier (stage 2) if available
+      try {
+        const { loadClassifier } = await import('@/lib/classifier-inference');
+        const classNamesRes = await fetch('/models/class_names.json');
+        if (classNamesRes.ok) {
+          const names: string[] = await classNamesRes.json();
+          const clsOk = await loadClassifier('/models/mushroom-classifier.onnx', names);
+          setClassifierReady(clsOk);
+          if (clsOk) console.log('[Scanner] Classifier loaded:', names.length, 'species');
+        }
+      } catch {
+        console.log('[Scanner] Classifier not available yet — detection only');
       }
     } catch (err) {
       console.error('[Scanner] Model loading failed:', err);
@@ -181,7 +198,33 @@ export default function ScannerPage() {
           );
 
           if (result.detections.length > 0) {
-            setDetections(result.detections);
+            // Run classifier on top detection if available
+            let classifiedDetections = result.detections;
+            if (classifierReady && video) {
+              try {
+                const { classifyDetection } = await import('@/lib/classifier-inference');
+                const topDet = result.detections.reduce((a, b) => a.confidence > b.confidence ? a : b);
+                const cls = await classifyDetection(video, topDet.bbox);
+                if (cls && cls.confidence > 0.15) {
+                  setClassification(cls);
+                  // Find Italian name from species database
+                  const species = SPECIES_DATABASE.find(s => s.id === cls.speciesId);
+                  const label = species
+                    ? `${species.italianName} ${Math.round(cls.confidence * 100)}%`
+                    : `${cls.speciesId} ${Math.round(cls.confidence * 100)}%`;
+                  // Update top detection label with species name
+                  classifiedDetections = result.detections.map(d =>
+                    d === topDet ? { ...d, label } : d
+                  );
+                } else {
+                  setClassification(null);
+                }
+              } catch {
+                // Classifier failed — keep generic label
+              }
+            }
+
+            setDetections(classifiedDetections);
             setTotalDetections((prev) => prev + result.detections.length);
 
             // Vibrate on high-confidence detection
@@ -191,6 +234,7 @@ export default function ScannerPage() {
             }
           } else {
             setDetections([]);
+            setClassification(null);
           }
 
           if (result.inferenceTimeMs > 0) {
@@ -372,13 +416,17 @@ export default function ScannerPage() {
 
     // Persist to scan-store (thumbnail + GPS for ML feedback)
     const thumbnail = await createThumbnail(videoRef.current);
-    const matchedSpecies = topDet
-      ? SPECIES_DATABASE.find(
-          (s) =>
-            s.italianName.toLowerCase() === topDet.label.toLowerCase() ||
-            s.id === topDet.label.toLowerCase().replace(/\s+/g, '-'),
-        )
-      : undefined;
+
+    // Resolve species: prefer classifier result, fallback to label matching
+    const matchedSpecies = classification
+      ? SPECIES_DATABASE.find(s => s.id === classification.speciesId)
+      : topDet
+        ? SPECIES_DATABASE.find(
+            (s) =>
+              s.italianName.toLowerCase() === topDet.label.toLowerCase() ||
+              s.id === topDet.label.toLowerCase().replace(/\s+/g, '-'),
+          )
+        : undefined;
 
     // Grab GPS if available
     let lat: number | null = null;
@@ -427,7 +475,11 @@ export default function ScannerPage() {
   );
 
   // Resolve the top detection to a Species entry for lookalike lookup.
+  // Prefer classifier result (by speciesId), fallback to label text matching.
   const topDetectionSpecies = useMemo(() => {
+    if (classification) {
+      return SPECIES_DATABASE.find(s => s.id === classification.speciesId) ?? null;
+    }
     if (!topDetection) return null;
     const label = topDetection.label.toLowerCase();
     return (
@@ -437,7 +489,7 @@ export default function ScannerPage() {
           s.id === label.replace(/\s+/g, '-'),
       ) ?? null
     );
-  }, [topDetection]);
+  }, [topDetection, classification]);
 
   // Pre-compute whether lookalike panel should show (used in multiple render spots)
   const showLookalikes = useMemo(
@@ -556,6 +608,13 @@ export default function ScannerPage() {
             {/* FPS counter */}
             {modelLoaded && (
               <span className="text-xs text-white/60 font-mono">{fps} FPS</span>
+            )}
+
+            {/* Classifier badge */}
+            {classifierReady && (
+              <span className="text-[10px] text-forest-400 font-semibold bg-forest-400/15 px-1.5 py-0.5 rounded">
+                AI ID
+              </span>
             )}
 
             {/* Model status */}
@@ -693,6 +752,32 @@ export default function ScannerPage() {
                 />
               </div>
             </div>
+          {/* Top-3 species predictions */}
+          {classification && classification.top3.length > 1 && (
+            <div className="mt-2 flex gap-1.5 flex-wrap">
+              {classification.top3.map((pred, i) => {
+                const sp = SPECIES_DATABASE.find(s => s.id === pred.speciesId);
+                if (!sp || pred.confidence < 0.05) return null;
+                const isDangerous = sp.edibility === 'tossico' || sp.edibility === 'mortale';
+                return (
+                  <div
+                    key={pred.speciesId}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
+                      i === 0
+                        ? isDangerous
+                          ? 'bg-red-600/90 text-white'
+                          : 'bg-forest-600/90 text-white'
+                        : 'bg-white/15 text-white/80'
+                    }`}
+                  >
+                    {isDangerous && <span className="text-[10px]">{sp.edibility === 'mortale' ? '☠' : '⚠'}</span>}
+                    <span>{sp.italianName}</span>
+                    <span className="opacity-60">{Math.round(pred.confidence * 100)}%</span>
+                  </div>
+                );
+              })}
+            </div>
+          )}
           </div>
         </div>
       )}
