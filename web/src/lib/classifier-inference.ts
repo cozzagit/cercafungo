@@ -40,7 +40,7 @@ let classNames: string[] = [];
 
 async function getOrt(): Promise<typeof import('onnxruntime-web')> {
   const ort = await import('onnxruntime-web');
-  ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/';
+  ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.3/dist/';
   return ort;
 }
 

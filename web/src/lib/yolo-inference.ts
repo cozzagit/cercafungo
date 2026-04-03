@@ -130,7 +130,7 @@ async function getOrt(): Promise<typeof import('onnxruntime-web')> {
   ort = await import('onnxruntime-web');
 
   // Configure WASM paths — use CDN for the WASM backend files
-  ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/';
+  ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.24.3/dist/';
 
   return ort;
 }

@@ -1,5 +1,5 @@
 /// CercaFungo Service Worker — Cache-first for static assets, network-first for pages
-const CACHE_NAME = 'cercafungo-v1';
+const CACHE_NAME = 'cercafungo-v2';
 
 const PRECACHE_URLS = [
   '/',
