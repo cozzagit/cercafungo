@@ -42,7 +42,7 @@ export function SpeciesDetail({ species }: SpeciesDetailProps) {
           )}
           <div className="flex items-start gap-4 pl-3">
             <span className="text-4xl flex-shrink-0">
-              {species.edibility === 'mortale' ? '\u2620\uFE0F' : '\u26A0\uFE0F'}
+              {species.edibility === 'mortale' ? '☠️' : '⚠️'}
             </span>
             <div>
               <h2 className={`text-xl font-bold mb-2 ${
@@ -114,7 +114,7 @@ export function SpeciesDetail({ species }: SpeciesDetailProps) {
           <Card>
             <CardHeader>
               <h2 className="text-xl font-bold text-bark-700 flex items-center gap-2">
-                <span className="text-2xl">\uD83D\uDD0D</span>
+                <span className="text-2xl">🔍</span>
                 Identificazione
               </h2>
             </CardHeader>
@@ -160,7 +160,7 @@ export function SpeciesDetail({ species }: SpeciesDetailProps) {
             <Card>
               <CardHeader>
                 <h2 className="text-xl font-bold text-bark-700 flex items-center gap-2">
-                  <span className="text-2xl">\uD83C\uDF7D\uFE0F</span>
+                  <span className="text-2xl">🍽️</span>
                   Commestibilita
                 </h2>
               </CardHeader>
@@ -177,7 +177,7 @@ export function SpeciesDetail({ species }: SpeciesDetailProps) {
           <Card className="bg-forest-50 border-forest-200">
             <CardContent className="pt-6">
               <div className="flex items-start gap-3">
-                <span className="text-2xl flex-shrink-0">\uD83D\uDCA1</span>
+                <span className="text-2xl flex-shrink-0">💡</span>
                 <div>
                   <h3 className="font-bold text-forest-800 mb-1">Lo sapevi?</h3>
                   <p className="text-forest-700 leading-relaxed">{species.funFact}</p>
